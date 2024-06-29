@@ -10,7 +10,11 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import { useNavigation } from '@react-navigation/native';
+
+
 export default function ForgotPassword() {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
 
   const handleResetPassword = () => {
@@ -67,10 +71,7 @@ export default function ForgotPassword() {
             </View>
 
             <TouchableOpacity
-              onPress={() => {
-                // Navigate to login screen
-                console.log("Navigate to login screen");
-              }}
+              onPress={() => navigation.navigate('Login')}
               style={{ marginTop: 20 }}>
               <Text style={styles.formLink}>
                 Remember your password?{' '}

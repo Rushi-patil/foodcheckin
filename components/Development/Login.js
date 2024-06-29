@@ -9,8 +9,11 @@ import {
   TextInput,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function Login() {
+  const navigation = useNavigation();
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -83,9 +86,7 @@ export default function Login() {
         </KeyboardAwareScrollView>
 
         <TouchableOpacity
-          onPress={() => {
-            // handle link
-          }}
+         onPress={() => navigation.navigate('Signup')}
           style={{ marginTop: 'auto' }}>
           <Text style={styles.formFooter}>
             Don't have an account?{' '}

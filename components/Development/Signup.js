@@ -9,8 +9,13 @@ import {
   TextInput,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 export default function Signup() {
+  const navigation = useNavigation();
+
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -126,15 +131,13 @@ export default function Signup() {
             </View>
 
             <TouchableOpacity
-              onPress={() => {
-                // handle navigation to login screen
-              }}
-              style={{ marginTop: 20 }}>
-              <Text style={styles.formLink}>
-                Already have an account?{' '}
-                <Text style={{ textDecorationLine: 'underline' }}>Log in</Text>
-              </Text>
-            </TouchableOpacity>
+        onPress={() => navigation.navigate('Login')}
+        style={{ marginTop: 20 }}>
+        <Text style={styles.formLink}>
+          Already have an account?{' '}
+          <Text style={{ textDecorationLine: 'underline' }}>Log in</Text>
+        </Text>
+      </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
       </View>
