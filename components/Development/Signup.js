@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
+import logo from '../../assets/images/logo.jpeg';
+
 
 
 
@@ -33,9 +35,7 @@ export default function Signup() {
               alt="App Logo"
               resizeMode="contain"
               style={styles.headerImg}
-              source={{
-                uri: 'https://assets.withfra.me/SignUp.2.png',
-              }} />
+              source={logo} />
 
             <Text style={styles.title}>
               Sign up <Text style={{ color: '#075eec' }}>Now</Text>
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     alignSelf: 'center',
-    marginBottom: 36,
+    // marginBottom: 36,
   },
   /** Form */
   form: {
