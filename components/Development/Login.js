@@ -78,8 +78,11 @@ export default function Login() {
                 </View>
               </TouchableOpacity>
             </View>
-
+            <TouchableOpacity
+         onPress={() => navigation.navigate('ForgotPassword')}
+          style={{ marginTop: 'auto' }}>
             <Text style={styles.formLink}>Forgot password?</Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
 

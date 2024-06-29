@@ -9,6 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import logo from '../../assets/images/logo.jpeg';
 
 export default function ConfirmationCode() {
   const [code, setCode] = useState('');
@@ -28,9 +29,7 @@ export default function ConfirmationCode() {
               alt="App Logo"
               resizeMode="contain"
               style={styles.headerImg}
-              source={{
-                uri: 'https://assets.withfra.me/Confirmation.2.png',
-              }} />
+              source={logo} />
 
             <Text style={styles.title}>
               Confirm Your Email
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     alignSelf: 'center',
-    marginBottom: 36,
+    // marginBottom: 36,
   },
   /** Form */
   form: {
