@@ -9,7 +9,6 @@ import {
   TextInput,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -71,13 +70,15 @@ export default function ForgotPassword() {
             </View>
 
             <TouchableOpacity
-              onPress={() => navigation.navigate('Login')}
+       onPress={() => navigation.navigate('Login')}
               style={{ marginTop: 20 }}>
               <Text style={styles.formLink}>
                 Remember your password?{' '}
                 <Text style={{ textDecorationLine: 'underline' }}>Log in</Text>
               </Text>
             </TouchableOpacity>
+
+            
           </View>
         </KeyboardAwareScrollView>
       </View>

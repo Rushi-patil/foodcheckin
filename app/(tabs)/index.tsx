@@ -3,6 +3,7 @@ import Login from "../../components/Development/Login"
 import Signup from '../../components/Development/Signup';
 import ForgotPassword from '../../components/Development/Forgotpassword';
 import ConfirmationCode from '../../components/Development/ConfirmationCode';
+import UserProfile from '../../components/Screen/User/UserProfile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -18,8 +19,11 @@ export default function HomeScreen() {
 <Stack.Navigator>
       {/* <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Login" component={Login} /> */}
+      {/* 
+      <Stack.Screen name="ConfirmationCode" component={ConfirmationCode} /> */}
+      {/* <Stack.Screen name="UserProfile" component={UserProfile} /> */}
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-      <Stack.Screen name="ConfirmationCode" component={ConfirmationCode} />
+      
     </Stack.Navigator>
 
 
