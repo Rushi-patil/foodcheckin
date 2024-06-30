@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, S
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 
-const Card = ({ image, name, type, isVeg, price, availability }) => (
+const Card = ({ image, name, type, isVeg, price, availability, vendor, location }) => (
   <View style={styles.foodCard}>
     <Image source={image} style={styles.foodImage} resizeMode="cover" />
     
@@ -26,8 +26,12 @@ const Card = ({ image, name, type, isVeg, price, availability }) => (
         ) : (
           <FeatherIcon name="slash" size={16} color="red" style={styles.nonVegIcon} />
         )}
+        <Text style={styles.foodPrice}>RS - {price}</Text>
       </View>
-      <Text style={styles.foodPrice}>RS - {price} </Text>
+      <View style={styles.vendorInfo}>
+        <Text style={styles.vendorName}>{vendor}</Text>
+        <Text style={styles.vendorLocation}>{location}</Text>
+      </View>
     </View>
   </View>
 );
@@ -37,12 +41,72 @@ export default function UserHome() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [foodItems, setFoodItems] = useState([
-    { id: 1, name: 'Pasta', type: 'lunch', isVeg: true, price: '120', image: require('../../../assets/images/pasta.jpg'), availability: 'available' },
-    { id: 2, name: 'Salad', type: 'lunch', isVeg: true, price: '60', image: require('../../../assets/images/salad.jpg'), availability: 'finished' },
-    { id: 3, name: 'Sandwich', type: 'breakfast', isVeg: true, price: '50', image: require('../../../assets/images/sandwich.jpg'), availability: 'available' },
-    { id: 4, name: 'Pizza', type: 'snack', isVeg: false, price: '100', image: require('../../../assets/images/pizza.jpg'), availability: 'available' },
-    { id: 5, name: 'Veg Thali', type: 'dinner', isVeg: true, price: '150', image: require('../../../assets/images/pepsi.jpg'), availability: 'available' },
-    { id: 6, name: 'Pepsi', type: 'all day', isVeg: true, price: '20', image: require('../../../assets/images/vegthali.jpg'), availability: 'available' },
+    {
+      id: 1,
+      name: 'Pasta',
+      type: 'lunch',
+      isVeg: true,
+      price: '120',
+      image: require('../../../assets/images/pasta.jpg'),
+      availability: 'available',
+      vendor: 'ABC Restaurant',
+      location: 'City A',
+    },
+    {
+      id: 2,
+      name: 'Salad',
+      type: 'lunch',
+      isVeg: true,
+      price: '60',
+      image: require('../../../assets/images/salad.jpg'),
+      availability: 'finished',
+      vendor: 'XYZ Cafe',
+      location: 'City B',
+    },
+    {
+      id: 3,
+      name: 'Sandwich',
+      type: 'breakfast',
+      isVeg: true,
+      price: '50',
+      image: require('../../../assets/images/sandwich.jpg'),
+      availability: 'available',
+      vendor: 'DEF Eatery',
+      location: 'City C',
+    },
+    {
+      id: 4,
+      name: 'Pizza',
+      type: 'snack',
+      isVeg: false,
+      price: '100',
+      image: require('../../../assets/images/pizza.jpg'),
+      availability: 'available',
+      vendor: 'GHI Pizzeria',
+      location: 'City D',
+    },
+    {
+      id: 5,
+      name: 'Veg Thali',
+      type: 'dinner',
+      isVeg: true,
+      price: '150',
+      image: require('../../../assets/images/vegthali.jpg'),
+      availability: 'available',
+      vendor: 'JKL Diner',
+      location: 'City E',
+    },
+    {
+      id: 6,
+      name: 'Pepsi',
+      type: 'all day',
+      isVeg: true,
+      price: '20',
+      image: require('../../../assets/images/pepsi.jpg'),
+      availability: 'available',
+      vendor: 'MNO Refreshments',
+      location: 'City F',
+    },
   ]);
 
   const renderFoodItem = ({ item }) => (
@@ -53,6 +117,8 @@ export default function UserHome() {
       isVeg={item.isVeg}
       price={item.price}
       availability={item.availability}
+      vendor={item.vendor}
+      location={item.location}
     />
   );
 
@@ -72,7 +138,7 @@ export default function UserHome() {
       <TextInput
         style={styles.searchBox}
         placeholder="Search food items"
-        placeholderTextColor="#000" // Set placeholder text color to black
+        placeholderTextColor="#000"
         value={searchQuery}
         onChangeText={(text) => setSearchQuery(text)}
       />
@@ -167,18 +233,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginBottom: 16,
     fontSize: 16,
-    color: '#000', // Text color for input
+    color: '#000',
   },
   filterScroll: {
     marginBottom: 16,
   },
   filters: {
     flexDirection: 'row',
-    height: 40, // Set a fixed height for filter buttons
+    height: 40,
   },
   filterButton: {
-    height: '100%', // Make the button take the full height of the container
-    justifyContent: 'center', // Center text vertically
+    height: '100%',
+    justifyContent: 'center',
     paddingHorizontal: 16,
     borderRadius: 8,
     borderWidth: 1,
@@ -194,7 +260,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   selectedFilterText: {
-    color: '#fff', // White text color for selected filter
+    color: '#fff',
   },
   foodList: {
     flex: 1,
@@ -262,5 +328,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#007bff',
+    marginRight: 8,
+  },
+  vendorInfo: {
+    alignItems: 'flex-end',
+  },
+  vendorName: {
+    fontSize: 14,
+    color: '#666',
+  },
+  vendorLocation: {
+    fontSize: 12,
+    color: '#999',
   },
 });
