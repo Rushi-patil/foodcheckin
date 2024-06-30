@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, Modal, Pressable, Picker } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, Modal, Pressable } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import {Picker} from '@react-native-picker/picker';
 
 const Card = ({ image, name, type, isVeg, price, availability, vendor, location }) => {
   let statusBackgroundColor = '#57AF46'; // Default color for available items
@@ -226,35 +227,54 @@ export default function UserHome() {
       />
 
       {/* Location Modal */}
+     
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={closeModal}
+  animationType="slide"
+  transparent={true}
+  visible={modalVisible}
+  onRequestClose={closeModal}
+>
+  <View style={styles.centeredView}>
+    <View style={styles.modalView}>
+      <Text style={styles.modalText}>Select Location</Text>
+      {/* Replace ScrollView with Picker */}
+      <Picker
+        selectedValue={selectedLocation}
+        onValueChange={(itemValue, itemIndex) =>
+          setSelectedLocation(itemValue)
+        }
+        style={styles.modalPicker}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Select Location</Text>
-            <ScrollView style={styles.modalScrollView}>
-              {foodItems.map(item => (
-                <Pressable
-                  key={item.location}
-                  style={styles.modalItem}
-                  onPress={() => handleLocationSelect(item.location)}
-                >
-                  <Text>{item.location}</Text>
-                </Pressable>
-              ))}
-            </ScrollView>
-            <Pressable
-              style={[styles.modalButton, styles.modalCloseButton]}
-              onPress={closeModal}
-            >
-              <Text style={styles.textStyle}>Close</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+        {foodItems.map((item) => (
+          <Picker.Item
+            key={item.location}
+            label={item.location}
+            value={item.location}
+          />
+        ))}
+      </Picker>
+      {/* Buttons */}
+      <View style={styles.modalButtonContainer}>
+        {/* Done Button */}
+        <TouchableOpacity
+          style={[styles.modalButton, styles.modalDoneButton]}
+          onPress={() => {
+            closeModal(); // Close modal
+          }}
+        >
+          <Text style={styles.textStyle}>Done</Text>
+        </TouchableOpacity>
+        {/* Close Button */}
+        <TouchableOpacity
+          style={[styles.modalButton, styles.modalCloseButton]}
+          onPress={closeModal}
+        >
+          <Text style={styles.textStyle}>Close</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </View>
+</Modal>
     </View>
   );
 }
@@ -435,6 +455,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
+  modalPicker: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginHorizontal: 5,
+  },
+  modalDoneButton: {
+    backgroundColor: '#007bff',
+  },
+  modalCloseButton: {
+    backgroundColor: '#ccc',
+  },
+  modalPicker: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    marginBottom: 10,
+  },
   modalView: {
     backgroundColor: '#fff',
     borderRadius: 8,
@@ -455,23 +505,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  modalScrollView: {
-    maxHeight: 300,
-  },
-  modalItem: {
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  modalButton: {
-    marginTop: 10,
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  modalCloseButton: {
-    backgroundColor: '#007bff',
-  },
+
+
+
   textStyle: {
     color: '#fff',
     fontWeight: 'bold',
