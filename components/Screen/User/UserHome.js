@@ -3,42 +3,44 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, S
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 
-const Card = ({ image, name, type, isVeg, price, availability, vendor, location }) => (
-  <View style={styles.foodCard}>
-    <Image source={image} style={styles.foodImage} resizeMode="cover" />
-    
-    {/* Price Badge */}
-    <View style={styles.priceBadge}>
-      <Text style={styles.priceText}>₹{price}</Text>
-    </View>
+const Card = ({ image, name, type, isVeg, price, availability, vendor, location }) => {
+  let statusBackgroundColor = '#57AF46'; // Default color for available items
 
-    {availability === 'available' && (
-      <View style={styles.statusBadge}>
-        <Text style={styles.statusText}>Available</Text>
-      </View>
-    )}
-    {availability === 'finished' && (
-      <View style={styles.statusBadge}>
-        <Text style={styles.statusText}>Finished</Text>
-      </View>
-    )}
+  if (availability === 'finished') {
+    statusBackgroundColor = 'red'; // Change to red for finished items
+  }
 
-    <View style={styles.foodBottom}>
-      <View style={styles.foodLeft}>
-        <Text style={styles.foodName}>{name}</Text>
-        {isVeg ? (
-          <FeatherIcon name="check-circle" size={16} color="green" style={styles.vegIcon} />
-        ) : (
-          <FeatherIcon name="slash" size={16} color="red" style={styles.nonVegIcon} />
-        )}
+  return (
+    <View style={styles.foodCard}>
+      <Image source={image} style={styles.foodImage} resizeMode="cover" />
+      
+      {/* Price Badge */}
+      <View style={styles.priceBadge}>
+        <Text style={styles.priceText}>₹{price}</Text>
       </View>
-      <View style={styles.vendorInfo}>
-        <Text style={styles.vendorName}>{vendor}</Text>
-        <Text style={styles.vendorLocation}>{location}</Text>
+
+      {/* Status Badge */}
+      <View style={[styles.statusBadge, { backgroundColor: statusBackgroundColor }]}>
+        <Text style={styles.statusText}>{availability === 'available' ? 'Available' : 'Finished'}</Text>
+      </View>
+
+      <View style={styles.foodBottom}>
+        <View style={styles.foodLeft}>
+          <Text style={styles.foodName}>{name}</Text>
+          {isVeg ? (
+            <FeatherIcon name="check-circle" size={16} color="green" style={styles.vegIcon} />
+          ) : (
+            <FeatherIcon name="slash" size={16} color="red" style={styles.nonVegIcon} />
+          )}
+        </View>
+        <View style={styles.vendorInfo}>
+          <Text style={styles.vendorName}>{vendor}</Text>
+          <Text style={styles.vendorLocation}>{location}</Text>
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 
 export default function UserHome() {
