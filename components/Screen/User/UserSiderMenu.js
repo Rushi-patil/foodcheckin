@@ -61,9 +61,7 @@ export default function UserSiderMenu() {
         <ScrollView>
           <View style={styles.section}>
             <TouchableOpacity
-              onPress={() => {
-                // handle onPress
-              }}
+              onPress={() => navigation.navigate('UserHome')}
               style={styles.row}>
               <View style={[styles.rowIcon, { backgroundColor: '#007afe' }]}>
                 <FeatherIcon color="#fff" name="home" size={20} />

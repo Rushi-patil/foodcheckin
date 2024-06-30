@@ -9,6 +9,7 @@ import SplashScreen from '../../components/Screen/Intro/SplashScreen';
 import EditUserProfile from '../../components/Screen/User/EditUserProfile';
 import UserProfileView from '../../components/Screen/User/UserProfileView';
 import UserFeedback from '../../components/Screen/User/UserFeedback';
+import UserHome from '../../components/Screen/User/UserHome';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -22,6 +23,7 @@ export default function HomeScreen() {
     <>
 
 <Stack.Navigator>
+<Stack.Screen name="UserHome" component={UserHome} />
 <Stack.Screen name="SplashScreen" component={SplashScreen} /> 
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Login" component={Login} />
@@ -39,6 +41,7 @@ export default function HomeScreen() {
     
       <Stack.Screen name="UserProfileView" component={UserProfileView} />
       <Stack.Screen name="UserFeedback" component={UserFeedback} />
+ 
 
     </Stack.Navigator>
 
