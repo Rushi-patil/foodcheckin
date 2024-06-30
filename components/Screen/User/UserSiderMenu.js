@@ -99,6 +99,23 @@ export default function UserSiderMenu() {
             </TouchableOpacity>
 
             <TouchableOpacity
+                    onPress={() => navigation.navigate('UserFeedback')}
+              style={styles.row}>
+              <View style={[styles.rowIcon, { backgroundColor: 'tomato' }]}>
+                <FeatherIcon color="#fff" name="star" size={20} />
+              </View>
+
+              <Text style={styles.rowLabel}>Send Feedback</Text>
+
+              <View style={styles.rowSpacer} />
+
+              <FeatherIcon
+                color="#C6C6C6"
+                name="chevron-right"
+                size={20} />
+            </TouchableOpacity>
+
+            <TouchableOpacity
                     onPress={() => navigation.navigate('Usersetting')}
               style={styles.row}>
               <View style={[styles.rowIcon, { backgroundColor: '#fe9400' }]}>

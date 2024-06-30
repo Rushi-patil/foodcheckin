@@ -8,6 +8,7 @@ import UserSiderMenu from '../../components/Screen/User/UserSiderMenu';
 import SplashScreen from '../../components/Screen/Intro/SplashScreen';
 import EditUserProfile from '../../components/Screen/User/EditUserProfile';
 import UserProfileView from '../../components/Screen/User/UserProfileView';
+import UserFeedback from '../../components/Screen/User/UserFeedback';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -36,6 +37,7 @@ export default function HomeScreen() {
       <Stack.Screen name="Usersetting" component={Usersetting} />
       <Stack.Screen name="EditUserProfile" component={EditUserProfile} />
       <Stack.Screen name="UserProfileView" component={UserProfileView} />
+      <Stack.Screen name="UserFeedback" component={UserFeedback} />
 
     </Stack.Navigator>
 
