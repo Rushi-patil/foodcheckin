@@ -26,7 +26,7 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location 
         ) : (
           <FeatherIcon name="slash" size={16} color="red" style={styles.nonVegIcon} />
         )}
-        <Text style={styles.foodPrice}>RS - {price}</Text>
+       
       </View>
       <View style={styles.vendorInfo}>
         <Text style={styles.vendorName}>{vendor}</Text>
@@ -323,12 +323,6 @@ const styles = StyleSheet.create({
   },
   nonVegIcon: {
     marginRight: 4,
-  },
-  foodPrice: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#007bff',
-    marginRight: 8,
   },
   vendorInfo: {
     alignItems: 'flex-end',
