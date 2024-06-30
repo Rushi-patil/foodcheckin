@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-export default function Usersetting() {
+export default function Usersetting({navigation}) {
   const [form, setForm] = useState({
     darkMode: false,
     emailNotifications: true,
@@ -21,42 +21,13 @@ export default function Usersetting() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
-        <View style={styles.profile}>
-          <TouchableOpacity
-            onPress={() => {
-              // handle onPress
-            }}>
-            <View style={styles.profileAvatarWrapper}>
-              <Image
-                alt=""
-                source={{
-                  uri: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80',
-                }}
-                style={styles.profileAvatar} />
-
-              <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}>
-                <View style={styles.profileAction}>
-                  <FeatherIcon
-                    color="#fff"
-                    name="edit-3"
-                    size={15} />
-                </View>
-              </TouchableOpacity>
-            </View>
+      <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <FeatherIcon name="chevron-left" size={24} color="#333" />
           </TouchableOpacity>
-
-          <View>
-            <Text style={styles.profileName}>John Doe</Text>
-
-            <Text style={styles.profileAddress}>
-              123 Maple Street. Anytown, PA 17101
-            </Text>
-          </View>
+          <Text style={styles.headerTitle}>Setting</Text>
+          
         </View>
-
         <ScrollView>
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Preferences</Text>
@@ -224,6 +195,23 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    textAlign: 'center', 
+    flex: 1, 
+    
   },
   /** Profile */
   profile: {
