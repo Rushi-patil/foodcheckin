@@ -135,13 +135,17 @@ export default function UserHome() {
       </TouchableOpacity>
 
       {/* Search Box */}
-      <TextInput
-        style={styles.searchBox}
-        placeholder="Search food items"
-        placeholderTextColor="#000"
-        value={searchQuery}
-        onChangeText={(text) => setSearchQuery(text)}
-      />
+  
+       <View style={styles.searchBoxContainer}>
+        <FeatherIcon name="search" size={20} color="#999" style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchBox}
+          placeholder="Search food items"
+          placeholderTextColor="#999"
+          value={searchQuery}
+          onChangeText={(text) => setSearchQuery(text)}
+        />
+      </View>
 
       {/* Filters */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
@@ -225,15 +229,23 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#fff',
   },
-  searchBox: {
+  searchBoxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
     marginBottom: 16,
+    paddingHorizontal: 12,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchBox: {
+    flex: 1,
     fontSize: 16,
     color: '#000',
+    paddingVertical: 12,
   },
   filterScroll: {
     marginBottom: 16,
