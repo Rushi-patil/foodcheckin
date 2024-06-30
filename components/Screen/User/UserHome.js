@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 
@@ -40,7 +40,9 @@ export default function UserHome() {
     { id: 1, name: 'Pasta', type: 'lunch', isVeg: true, price: '120', image: require('../../../assets/images/pasta.jpg'), availability: 'available' },
     { id: 2, name: 'Salad', type: 'lunch', isVeg: true, price: '60', image: require('../../../assets/images/salad.jpg'), availability: 'finished' },
     { id: 3, name: 'Sandwich', type: 'breakfast', isVeg: true, price: '50', image: require('../../../assets/images/sandwich.jpg'), availability: 'available' },
-    { id: 4, name: 'Pizza', type: 'snack', isVeg: false, price: '100',image: require('../../../assets/images/pizza.jpg'), availability: 'available' },
+    { id: 4, name: 'Pizza', type: 'snack', isVeg: false, price: '100', image: require('../../../assets/images/pizza.jpg'), availability: 'available' },
+    { id: 5, name: 'Veg Thali', type: 'dinner', isVeg: true, price: '150', image: require('../../../assets/images/pepsi.jpg'), availability: 'available' },
+    { id: 6, name: 'Pepsi', type: 'all day', isVeg: true, price: '20', image: require('../../../assets/images/vegthali.jpg'), availability: 'available' },
   ]);
 
   const renderFoodItem = ({ item }) => (
@@ -76,32 +78,46 @@ export default function UserHome() {
       />
 
       {/* Filters */}
-      <View style={styles.filters}>
-        <TouchableOpacity
-          style={[styles.filterButton, selectedFilter === 'all' && styles.selectedFilter]}
-          onPress={() => setSelectedFilter('all')}
-        >
-          <Text style={[styles.filterText, selectedFilter === 'all' && styles.selectedFilterText]}>All</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.filterButton, selectedFilter === 'breakfast' && styles.selectedFilter]}
-          onPress={() => setSelectedFilter('breakfast')}
-        >
-          <Text style={[styles.filterText, selectedFilter === 'breakfast' && styles.selectedFilterText]}>Breakfast</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.filterButton, selectedFilter === 'lunch' && styles.selectedFilter]}
-          onPress={() => setSelectedFilter('lunch')}
-        >
-          <Text style={[styles.filterText, selectedFilter === 'lunch' && styles.selectedFilterText]}>Lunch</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.filterButton, selectedFilter === 'snack' && styles.selectedFilter]}
-          onPress={() => setSelectedFilter('snack')}
-        >
-          <Text style={[styles.filterText, selectedFilter === 'snack' && styles.selectedFilterText]}>Snack</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+        <View style={styles.filters}>
+          <TouchableOpacity
+            style={[styles.filterButton, selectedFilter === 'all' && styles.selectedFilter]}
+            onPress={() => setSelectedFilter('all')}
+          >
+            <Text style={[styles.filterText, selectedFilter === 'all' && styles.selectedFilterText]}>All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.filterButton, selectedFilter === 'breakfast' && styles.selectedFilter]}
+            onPress={() => setSelectedFilter('breakfast')}
+          >
+            <Text style={[styles.filterText, selectedFilter === 'breakfast' && styles.selectedFilterText]}>Breakfast</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.filterButton, selectedFilter === 'lunch' && styles.selectedFilter]}
+            onPress={() => setSelectedFilter('lunch')}
+          >
+            <Text style={[styles.filterText, selectedFilter === 'lunch' && styles.selectedFilterText]}>Lunch</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.filterButton, selectedFilter === 'snack' && styles.selectedFilter]}
+            onPress={() => setSelectedFilter('snack')}
+          >
+            <Text style={[styles.filterText, selectedFilter === 'snack' && styles.selectedFilterText]}>Snack</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.filterButton, selectedFilter === 'all day' && styles.selectedFilter]}
+            onPress={() => setSelectedFilter('all day')}
+          >
+            <Text style={[styles.filterText, selectedFilter === 'all day' && styles.selectedFilterText]}>All Day</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.filterButton, selectedFilter === 'dinner' && styles.selectedFilter]}
+            onPress={() => setSelectedFilter('dinner')}
+          >
+            <Text style={[styles.filterText, selectedFilter === 'dinner' && styles.selectedFilterText]}>Dinner</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
 
       {/* Food Items List */}
       <FlatList
@@ -153,13 +169,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#000', // Text color for input
   },
-  filters: {
-    flexDirection: 'row',
+  filterScroll: {
     marginBottom: 16,
   },
+  filters: {
+    flexDirection: 'row',
+    height: 40, // Set a fixed height for filter buttons
+  },
   filterButton: {
+    height: '100%', // Make the button take the full height of the container
+    justifyContent: 'center', // Center text vertically
     paddingHorizontal: 16,
-    paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#ccc',
