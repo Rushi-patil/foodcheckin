@@ -7,6 +7,11 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location 
   <View style={styles.foodCard}>
     <Image source={image} style={styles.foodImage} resizeMode="cover" />
     
+    {/* Price Badge */}
+    <View style={styles.priceBadge}>
+      <Text style={styles.priceText}>₹{price}</Text>
+    </View>
+
     {availability === 'available' && (
       <View style={styles.statusBadge}>
         <Text style={styles.statusText}>Available</Text>
@@ -26,7 +31,6 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location 
         ) : (
           <FeatherIcon name="slash" size={16} color="red" style={styles.nonVegIcon} />
         )}
-       
       </View>
       <View style={styles.vendorInfo}>
         <Text style={styles.vendorName}>{vendor}</Text>
@@ -35,6 +39,7 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location 
     </View>
   </View>
 );
+
 
 export default function UserHome() {
   const navigation = useNavigation();
@@ -298,6 +303,20 @@ const styles = StyleSheet.create({
     height: 200,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+  },
+  priceBadge: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    backgroundColor: 'white',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  priceText: {
+    color: '#000',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   statusBadge: {
     position: 'absolute',
