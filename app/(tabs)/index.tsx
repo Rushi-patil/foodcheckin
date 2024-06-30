@@ -22,7 +22,8 @@ export default function HomeScreen() {
     <>
 
 <Stack.Navigator>
-      {/* <Stack.Screen name="Signup" component={Signup} />
+<Stack.Screen name="SplashScreen" component={SplashScreen} /> 
+      <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Login" component={Login} />
       
       <Stack.Screen name="ConfirmationCode" component={ConfirmationCode} />
@@ -31,11 +32,11 @@ export default function HomeScreen() {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       
        <Stack.Screen name="EditUserProfile" component={EditUserProfile} />
-      <Stack.Screen name="SplashScreen" component={SplashScreen} />  */}
+ 
     
     <Stack.Screen name="UserSiderMenu" component={UserSiderMenu} />
-      <Stack.Screen name="Usersetting" component={Usersetting} />
-      <Stack.Screen name="EditUserProfile" component={EditUserProfile} />
+     
+    
       <Stack.Screen name="UserProfileView" component={UserProfileView} />
       <Stack.Screen name="UserFeedback" component={UserFeedback} />
 
