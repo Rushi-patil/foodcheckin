@@ -139,10 +139,7 @@ export default function UserHome() {
     setModalVisible(false);
   };
 
-  const handleLocationSelect = (location) => {
-    setSelectedLocation(location);
-    setModalVisible(false); // Close the modal after selection
-  };
+
 
   return (
     <View style={styles.container}>
@@ -448,6 +445,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     marginRight: 8,
+     fontWeight: 'bold',
   },
   centeredView: {
     flex: 1,
