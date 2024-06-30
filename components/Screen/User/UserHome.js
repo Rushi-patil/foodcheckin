@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, Modal, Pressable, Picker } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 
@@ -42,11 +42,12 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location 
   );
 };
 
-
 export default function UserHome() {
   const navigation = useNavigation();
+  const [selectedLocation, setSelectedLocation] = useState('City A');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [modalVisible, setModalVisible] = useState(false); // State for controlling modal visibility
   const [foodItems, setFoodItems] = useState([
     {
       id: 1,
@@ -129,12 +130,31 @@ export default function UserHome() {
     />
   );
 
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
+    setModalVisible(false); // Close the modal after selection
+  };
+
   return (
     <View style={styles.container}>
       {/* Greetings and User Circle */}
       <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')}>
         <View style={styles.header}>
-          <Text style={styles.greetings}>Good Morning</Text>
+          {/* Display selected location and add dropdown icon */}
+          <TouchableOpacity onPress={openModal}>
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationText}>{selectedLocation}</Text>
+              <FeatherIcon name="chevron-down" size={20} color="#007bff" />
+            </View>
+          </TouchableOpacity>
           <View style={styles.userCircle}>
             <Text style={styles.userInitials}>JD</Text>
           </View>
@@ -142,8 +162,7 @@ export default function UserHome() {
       </TouchableOpacity>
 
       {/* Search Box */}
-  
-       <View style={styles.searchBoxContainer}>
+      <View style={styles.searchBoxContainer}>
         <FeatherIcon name="search" size={20} color="#999" style={styles.searchIcon} />
         <TextInput
           style={styles.searchBox}
@@ -203,6 +222,37 @@ export default function UserHome() {
         keyExtractor={(item) => item.id.toString()}
         style={styles.foodList}
       />
+
+      {/* Location Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Select Location</Text>
+            <ScrollView style={styles.modalScrollView}>
+              {foodItems.map(item => (
+                <Pressable
+                  key={item.location}
+                  style={styles.modalItem}
+                  onPress={() => handleLocationSelect(item.location)}
+                >
+                  <Text>{item.location}</Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+            <Pressable
+              style={[styles.modalButton, styles.modalCloseButton]}
+              onPress={closeModal}
+            >
+              <Text style={styles.textStyle}>Close</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -367,5 +417,61 @@ const styles = StyleSheet.create({
   vendorLocation: {
     fontSize: 12,
     color: '#999',
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  locationText: {
+    fontSize: 16,
+    color: '#333',
+    marginRight: 8,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalView: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    minWidth: 300,
+    maxHeight: 400,
+  },
+  modalText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalScrollView: {
+    maxHeight: 300,
+  },
+  modalItem: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  modalButton: {
+    marginTop: 10,
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  modalCloseButton: {
+    backgroundColor: '#007bff',
+  },
+  textStyle: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
