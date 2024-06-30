@@ -146,7 +146,7 @@ export default function UserHome() {
   return (
     <View style={styles.container}>
       {/* Greetings and User Circle */}
-      <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')}>
+     
         <View style={styles.header}>
           {/* Display selected location and add dropdown icon */}
           <TouchableOpacity onPress={openModal}>
@@ -156,10 +156,12 @@ export default function UserHome() {
             </View>
           </TouchableOpacity>
           <View style={styles.userCircle}>
+          <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')}>
             <Text style={styles.userInitials}>JD</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </TouchableOpacity>
+     
 
       {/* Search Box */}
       <View style={styles.searchBoxContainer}>
