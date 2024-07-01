@@ -20,6 +20,7 @@ import AdminHome from '../../components/Screen/Admin/AdminHome';
 import AdminSiderMenu from '../../components/Screen/Admin/AdminSiderMenu';
 import AdminProfileView from '../../components/Screen/Admin/AdminProfileView';
 import EditAdminProfile from '../../components/Screen/Admin/EditAdminProfile';
+import ViewFeedback from '../../components/Screen/Admin/ViewFeeback';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -62,6 +63,7 @@ export default function HomeScreen() {
         <Stack.Screen name="AdminSiderMenu" component={AdminSiderMenu} />
         <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
         <Stack.Screen name="AdminProfileView" component={AdminProfileView} />
+        <Stack.Screen name="ViewFeedback" component={ViewFeedback} />
        
 
       </Stack.Navigator>

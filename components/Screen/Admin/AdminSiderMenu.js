@@ -142,9 +142,7 @@ export default function AdminSiderMenu() {
 
     {/* Check Messages */}
     <TouchableOpacity
-      onPress={() => {
-        // handle onPress
-      }}
+     onPress={() => navigation.navigate('ViewFeedback')}
       style={styles.row}>
       <View style={[styles.rowIcon, { backgroundColor: '#00bcd4' }]}>
         <FeatherIcon color="#fff" name="message-circle" size={20} />
