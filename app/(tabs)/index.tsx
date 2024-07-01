@@ -54,7 +54,7 @@ export default function HomeScreen() {
         {/* <Stack.Screen name="AdminHome" component={AdminHome} /> */}
         {/* <Stack.Screen name="ManageFoodCollection" component={ManageFoodCollection} /> */}
 
-        <Stack.Screen name="UserHome" component={UserHome} />
+        <Stack.Screen name="VendorHome" component={VendorHome} />
       </Stack.Navigator>
 
 
