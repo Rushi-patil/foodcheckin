@@ -1,30 +1,31 @@
+
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, Modal, Pressable } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import {Picker} from '@react-native-picker/picker';
-
+import { Picker } from '@react-native-picker/picker';
+ 
 const Card = ({ image, name, type, isVeg, price, availability, vendor, location }) => {
   let statusBackgroundColor = '#57AF46'; // Default color for available items
-
+ 
   if (availability === 'finished') {
     statusBackgroundColor = 'red'; // Change to red for finished items
   }
-
+ 
   return (
     <View style={styles.foodCard}>
       <Image source={image} style={styles.foodImage} resizeMode="cover" />
-      
+     
       {/* Price Badge */}
       <View style={styles.priceBadge}>
         <Text style={styles.priceText}>₹{price}</Text>
       </View>
-
+ 
       {/* Status Badge */}
       <View style={[styles.statusBadge, { backgroundColor: statusBackgroundColor }]}>
         <Text style={styles.statusText}>{availability === 'available' ? 'Available' : 'Finished'}</Text>
       </View>
-
+ 
       <View style={styles.foodBottom}>
         <View style={styles.foodLeft}>
           <Text style={styles.foodName}>{name}</Text>
@@ -42,7 +43,7 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location 
     </View>
   );
 };
-
+ 
 export default function UserHome() {
   const navigation = useNavigation();
   const [selectedLocation, setSelectedLocation] = useState('City A');
@@ -117,7 +118,7 @@ export default function UserHome() {
       location: 'City F',
     },
   ]);
-
+ 
   const renderFoodItem = ({ item }) => (
     <Card
       image={item.image}
@@ -130,37 +131,32 @@ export default function UserHome() {
       location={item.location}
     />
   );
-
+ 
   const openModal = () => {
     setModalVisible(true);
   };
-
+ 
   const closeModal = () => {
     setModalVisible(false);
   };
-
-
-
+ 
   return (
-    <View style={styles.container}>
-      {/* Greetings and User Circle */}
-     
-        <View style={styles.header}>
-          {/* Display selected location and add dropdown icon */}
-          <TouchableOpacity onPress={openModal}>
-            <View style={styles.locationContainer}>
-              <Text style={styles.locationText}>{selectedLocation}</Text>
-              <FeatherIcon name="chevron-down" size={20} color="#007bff" />
-            </View>
-          </TouchableOpacity>
-          <View style={styles.userCircle}>
-          <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')}>
-            <Text style={styles.userInitials}>JD</Text>
-            </TouchableOpacity>
+    <ScrollView style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={openModal}>
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationText}>{selectedLocation}</Text>
+            <FeatherIcon name="chevron-down" size={20} color="#007bff" />
           </View>
-        </View>
-     
-
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')}>
+          <View style={styles.userCircle}>
+            <Text style={styles.userInitials}>JD</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+ 
       {/* Search Box */}
       <View style={styles.searchBoxContainer}>
         <FeatherIcon name="search" size={20} color="#999" style={styles.searchIcon} />
@@ -172,7 +168,7 @@ export default function UserHome() {
           onChangeText={(text) => setSearchQuery(text)}
         />
       </View>
-
+ 
       {/* Filters */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
         <View style={styles.filters}>
@@ -214,73 +210,77 @@ export default function UserHome() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
+ 
       {/* Food Items List */}
-      <FlatList
-        data={foodItems.filter(item => selectedFilter === 'all' || item.type === selectedFilter)}
-        renderItem={renderFoodItem}
-        keyExtractor={(item) => item.id.toString()}
-        style={styles.foodList}
-      />
-
+      {foodItems.length > 0 ? (
+        <FlatList
+          data={foodItems.filter(item => selectedFilter === 'all' || item.type === selectedFilter)}
+          renderItem={renderFoodItem}
+          keyExtractor={(item) => item.id.toString()}
+          style={styles.foodList}
+        />
+      ) : (
+        <View style={styles.noItemsContainer}>
+          <Text style={styles.noItemsText}>No items found</Text>
+        </View>
+      )}
+ 
       {/* Location Modal */}
-     
       <Modal
-  animationType="slide"
-  transparent={true}
-  visible={modalVisible}
-  onRequestClose={closeModal}
->
-  <View style={styles.centeredView}>
-    <View style={styles.modalView}>
-      <Text style={styles.modalText}>Select Location</Text>
-      {/* Replace ScrollView with Picker */}
-      <Picker
-        selectedValue={selectedLocation}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedLocation(itemValue)
-        }
-        style={styles.modalPicker}
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
       >
-        {foodItems.map((item) => (
-          <Picker.Item
-            key={item.location}
-            label={item.location}
-            value={item.location}
-          />
-        ))}
-      </Picker>
-      {/* Buttons */}
-      <View style={styles.modalButtonContainer}>
-        {/* Done Button */}
-        <TouchableOpacity
-          style={[styles.modalButton, styles.modalDoneButton]}
-          onPress={() => {
-            closeModal(); // Close modal
-          }}
-        >
-          <Text style={styles.textStyle}>Done</Text>
-        </TouchableOpacity>
-        {/* Close Button */}
-        <TouchableOpacity
-          style={[styles.modalButton, styles.modalCloseButton]}
-          onPress={closeModal}
-        >
-          <Text style={styles.textStyle}>Close</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  </View>
-</Modal>
-    </View>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Select Location</Text>
+            {/* Replace ScrollView with Picker */}
+            <Picker
+              selectedValue={selectedLocation}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedLocation(itemValue)
+              }
+              style={styles.modalPicker}
+            >
+              {foodItems.map((item) => (
+                <Picker.Item
+                  key={item.location}
+                  label={item.location}
+                  value={item.location}
+                />
+              ))}
+            </Picker>
+            {/* Buttons */}
+            <View style={styles.modalButtonContainer}>
+              {/* Done Button */}
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalDoneButton]}
+                onPress={closeModal}
+              >
+                <Text style={styles.textStyle}>Done</Text>
+              </TouchableOpacity>
+              {/* Close Button */}
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalCloseButton]}
+                onPress={closeModal}
+              >
+                <Text style={styles.textStyle}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </ScrollView>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
   header: {
     flexDirection: 'row',
@@ -288,31 +288,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
-  greetings: {
-    fontSize: 18,
-    fontWeight: '600',
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    elevation: 2,
+  },
+  locationText: {
+    fontSize: 16,
+    marginRight: 8,
   },
   userCircle: {
+    backgroundColor: '#007bff',
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
   },
   userInitials: {
-    fontSize: 16,
-    fontWeight: '600',
     color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   searchBoxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
+    backgroundColor: '#fff',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
     marginBottom: 16,
-    paddingHorizontal: 12,
   },
   searchIcon: {
     marginRight: 8,
@@ -320,38 +329,34 @@ const styles = StyleSheet.create({
   searchBox: {
     flex: 1,
     fontSize: 16,
-    color: '#000',
-    paddingVertical: 12,
+    color: '#333',
   },
   filterScroll: {
     marginBottom: 16,
   },
   filters: {
     flexDirection: 'row',
-    height: 40,
+    marginBottom: 8,
   },
   filterButton: {
-    height: '100%',
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginRight: 8,
-  },
-  selectedFilter: {
     backgroundColor: '#007bff',
-    borderColor: '#007bff',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 10,
+    marginHorizontal: 3,
   },
   filterText: {
-    fontSize: 16,
-    color: '#333',
+    color: '#fff',
+    fontSize: 14,
+  },
+  selectedFilter: {
+    backgroundColor: '#0056b3',
   },
   selectedFilterText: {
-    color: '#fff',
+    fontWeight: 'bold',
   },
   foodList: {
-    flex: 1,
+    marginBottom: 16,
   },
   foodCard: {
     backgroundColor: '#fff',
@@ -364,10 +369,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     marginLeft: 8,
     marginRight: 8,
-  },
-  cardContent: {
-    borderRadius: 8,
-    overflow: 'hidden',
   },
   foodImage: {
     width: '100%',
@@ -383,6 +384,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
+    elevation: 3,
+    zIndex: 1,
   },
   priceText: {
     color: '#000',
@@ -397,6 +400,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
+    elevation: 3,
+    zIndex: 1,
   },
   statusText: {
     color: '#fff',
@@ -437,39 +442,42 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
   },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  locationText: {
-    fontSize: 16,
-    color: '#333',
-    marginRight: 8,
-     fontWeight: 'bold',
-  },
+  // Modal Styles
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   modalPicker: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    marginBottom: 10,
+    height: 50,
+    width: '100%',
+    marginBottom: 20,
   },
   modalButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
+    justifyContent: 'space-around',
+    width: '100%',
   },
   modalButton: {
-    flex: 1,
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginHorizontal: 5,
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    width: '40%',
   },
   modalDoneButton: {
     backgroundColor: '#007bff',
@@ -477,37 +485,23 @@ const styles = StyleSheet.create({
   modalCloseButton: {
     backgroundColor: '#ccc',
   },
-  modalPicker: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    marginBottom: 10,
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  modalView: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    minWidth: 300,
-    maxHeight: 400,
+  noItemsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
   },
-  modalText: {
+  noItemsText: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
-  },
-
-
-
-  textStyle: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: '#333',
   },
 });
+ 
+ 
+ 
