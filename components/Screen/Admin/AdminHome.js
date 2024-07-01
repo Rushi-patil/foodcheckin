@@ -173,7 +173,7 @@ export default function AdminHome() {
       </TouchableOpacity>
  
       {/* User Circle */}
-      <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')} style={styles.userCircle}>
+      <TouchableOpacity onPress={() => navigation.navigate('AdminSiderMenu')} style={styles.userCircle}>
         <Text style={styles.userInitials}>Adm</Text>
       </TouchableOpacity>
     </View>

@@ -17,6 +17,7 @@ import VendorSiderMenu from '../../components/Screen/Vendor/VendorSiderMenu';
 import AddFoodItems from '../../components/Screen/Vendor/AddFoodItems';
 import ManageFoodCollection from '../../components/Screen/Vendor/ManageFoodCollection';
 import AdminHome from '../../components/Screen/Admin/AdminHome';
+import AdminSiderMenu from '../../components/Screen/Admin/AdminSiderMenu';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -52,9 +53,10 @@ export default function HomeScreen() {
         <Stack.Screen name="ManageFoodCollection" component={ManageFoodCollection} /> */}
         {/* Admin Screens */}
         {/* <Stack.Screen name="AdminHome" component={AdminHome} /> */}
-        {/* <Stack.Screen name="ManageFoodCollection" component={ManageFoodCollection} /> */}
+       
 
-        <Stack.Screen name="VendorHome" component={VendorHome} />
+        <Stack.Screen name="AdminHome" component={AdminHome} />
+        <Stack.Screen name="AdminSiderMenu" component={AdminSiderMenu} />
       </Stack.Navigator>
 
 
