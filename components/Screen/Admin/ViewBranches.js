@@ -25,6 +25,12 @@ export default function ViewBranches({ navigation }) {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState(null);
 
+  // State for editing form fields
+  const [editCountry, setEditCountry] = useState('');
+  const [editCity, setEditCity] = useState('');
+  const [editBranchName, setEditBranchName] = useState('');
+
+  // Function to handle search
   const handleSearch = () => {
     const filteredBranches = branchesData.filter(branch =>
       branch.country.toLowerCase().includes(searchQuery.toLowerCase())
@@ -32,25 +38,42 @@ export default function ViewBranches({ navigation }) {
     setBranches(filteredBranches);
   };
 
+  // Function to handle edit button click
   const handleEdit = (branch) => {
     setSelectedBranch(branch);
+    setEditCountry(branch.country);
+    setEditCity(branch.city);
+    setEditBranchName(branch.branchName);
     setEditModalVisible(true);
   };
 
+  // Function to handle delete button click
   const handleDelete = (branch) => {
     setSelectedBranch(branch);
     setDeleteModalVisible(true);
   };
 
+  // Function to confirm delete action
   const handleConfirmDelete = () => {
-    // Perform delete action here
     const updatedBranches = branches.filter(branch => branch.id !== selectedBranch.id);
     setBranches(updatedBranches);
     setDeleteModalVisible(false);
   };
 
+  // Function to confirm edit action
+  const handleConfirmEdit = () => {
+    const updatedBranches = branches.map(branch =>
+      branch.id === selectedBranch.id
+        ? { ...branch, country: editCountry, city: editCity, branchName: editBranchName }
+        : branch
+    );
+    setBranches(updatedBranches);
+    setEditModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <FeatherIcon name="chevron-left" size={24} color="#333" />
@@ -58,6 +81,7 @@ export default function ViewBranches({ navigation }) {
         <Text style={styles.headerTitle}>Company Branches</Text>
       </View>
 
+      {/* Search Bar */}
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.input}
@@ -68,6 +92,7 @@ export default function ViewBranches({ navigation }) {
         />
       </View>
 
+      {/* Branch Cards */}
       <View style={styles.cardContainer}>
         {branches.map(branch => (
           <View key={branch.id} style={styles.card}>
@@ -108,18 +133,38 @@ export default function ViewBranches({ navigation }) {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text>Edit Branch</Text>
+            
             {/* Form for editing branch */}
-            {selectedBranch && (
-              <View>
-                <Text>Country: {selectedBranch.country}</Text>
-                <Text>City: {selectedBranch.city}</Text>
-                <Text>Branch: {selectedBranch.branchName}</Text>
-                {/* Additional input fields for editing */}
-              </View>
-            )}
-            <TouchableOpacity style={styles.modalButton} onPress={() => setEditModalVisible(false)}>
-              <Text>Close</Text>
-            </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="Country"
+              value={editCountry}
+              onChangeText={text => setEditCountry(text)}
+            />
+            
+            <TextInput
+              style={styles.input}
+              placeholder="City"
+              value={editCity}
+              onChangeText={text => setEditCity(text)}
+            />
+            
+            <TextInput
+              style={styles.input}
+              placeholder="Branch Name"
+              value={editBranchName}
+              onChangeText={text => setEditBranchName(text)}
+            />
+            
+            {/* Buttons */}
+            <View style={styles.modalButtonContainer}>
+              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={handleConfirmEdit}>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={() => setEditModalVisible(false)}>
+                <Text style={styles.buttonText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -138,10 +183,10 @@ export default function ViewBranches({ navigation }) {
               <Text>Are you sure you want to delete {selectedBranch.country} branch?</Text>
             )}
             <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: 'red' }]} onPress={handleConfirmDelete}>
+              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={handleConfirmDelete}>
                 <Text style={styles.buttonText}>Yes</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.modalButton} onPress={() => setDeleteModalVisible(false)}>
+              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={() => setDeleteModalVisible(false)}>
                 <Text style={styles.buttonText}>No</Text>
               </TouchableOpacity>
             </View>
@@ -184,6 +229,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 12,
+    marginBottom: 12,
   },
   cardContainer: {
     paddingHorizontal: 24,
@@ -249,14 +295,14 @@ const styles = StyleSheet.create({
   },
   modalButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    width: '100%',
     marginTop: 16,
   },
   modalButton: {
-    backgroundColor: '#3498db',
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderRadius: 4,
-    marginLeft: 8,
+    alignItems: 'center',
   },
 });
