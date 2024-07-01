@@ -74,7 +74,7 @@ export default function AdminSiderMenu() {
 
     {/* Your Profile */}
     <TouchableOpacity
-      onPress={() => navigation.navigate('VendorProfileView')}
+      onPress={() => navigation.navigate('AdminProfileView')}
       style={styles.row}>
       <View style={[styles.rowIcon, { backgroundColor: '#32c759' }]}>
         <FeatherIcon color="#fff" name="user" size={20} />
