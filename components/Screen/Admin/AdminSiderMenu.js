@@ -86,14 +86,25 @@ export default function AdminSiderMenu() {
 
     {/* Add Branches */}
     <TouchableOpacity
-      onPress={() => {
-        // handle onPress
-      }}
+      onPress={() => navigation.navigate('AddBranches')}
+   
       style={styles.row}>
       <View style={[styles.rowIcon, { backgroundColor: 'tomato' }]}>
         <FeatherIcon color="#fff" name="plus" size={20} />
       </View>
       <Text style={styles.rowLabel}>Add Branches</Text>
+      <View style={styles.rowSpacer} />
+      <FeatherIcon color="#C6C6C6" name="chevron-right" size={20} />
+    </TouchableOpacity>
+
+    <TouchableOpacity
+    
+      onPress={() => navigation.navigate('ViewBranches')}
+      style={styles.row}>
+      <View style={[styles.rowIcon, { backgroundColor: 'tomato' }]}>
+        <FeatherIcon color="#fff" name="eye" size={20} />
+      </View>
+      <Text style={styles.rowLabel}>View Branches</Text>
       <View style={styles.rowSpacer} />
       <FeatherIcon color="#C6C6C6" name="chevron-right" size={20} />
     </TouchableOpacity>
