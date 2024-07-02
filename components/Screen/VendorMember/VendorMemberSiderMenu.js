@@ -37,7 +37,7 @@ export default function VendorMemberSiderMenu() {
                 style={styles.profileAvatar} />
 
               <TouchableOpacity
-              onPress={() => navigation.navigate('EditVendorProfile')}
+              onPress={() => navigation.navigate('EditVendorMemberProfile')}
 >
                 <View style={styles.profileAction}>
                   <FeatherIcon
