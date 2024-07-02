@@ -159,10 +159,14 @@ export default function UserHome() {
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
+    
+
       <View style={styles.header}>
-        <TouchableOpacity onPress={openModal} style={styles.locationContainer}>
-          <Text style={styles.locationText}>{selectedLocation}</Text>
-          <FeatherIcon name="chevron-down" size={20} color="#333" style={styles.locationIcon} />
+        <TouchableOpacity onPress={openModal}>
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationText}>{selectedLocation}</Text>
+            <FeatherIcon name="chevron-down" size={20} color="#007bff" />
+          </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('VendorSiderMenu')}>
           <View style={styles.userCircle}>
@@ -240,25 +244,45 @@ export default function UserHome() {
       )}
  
       {/* Location Modal */}
-      <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={closeModal}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Select Location</Text>
+            {/* Replace ScrollView with Picker */}
             <Picker
-              style={styles.modalPicker}
-              selectedValue={selectedLocation}
-              onValueChange={(itemValue, itemIndex) => setSelectedLocation(itemValue)}
-            >
-              <Picker.Item label="City A" value="City A" />
-              <Picker.Item label="City B" value="City B" />
-              <Picker.Item label="City C" value="City C" />
-              <Picker.Item label="City D" value="City D" />
-              <Picker.Item label="City E" value="City E" />
-              <Picker.Item label="City F" value="City F" />
-            </Picker>
+  selectedValue={selectedLocation}
+  onValueChange={(itemValue, itemIndex) => setSelectedLocation(itemValue)}
+  style={styles.modalPicker}
+>
+  {foodItems.map((item) => (
+    <Picker.Item
+      key={item.location}
+      label={item.location}
+      value={item.location}
+    />
+  ))}
+</Picker>
+
+
+            {/* Buttons */}
             <View style={styles.modalButtonContainer}>
+              {/* Done Button */}
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalDoneButton]}
+                onPress={closeModal}
+              >
+                <Text style={styles.textStyle}>Done</Text>
+              </TouchableOpacity>
               {/* Close Button */}
-              <TouchableOpacity style={[styles.modalButton, styles.modalCloseButton]} onPress={closeModal}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalCloseButton]}
+                onPress={closeModal}
+              >
                 <Text style={styles.textStyle}>Close</Text>
               </TouchableOpacity>
             </View>
@@ -460,25 +484,37 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
     elevation: 5,
+    width: '80%', // Adjust width as needed
+    paddingBottom: 30, // Increase bottom padding for more space
   },
+  
+  
+
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
   },
+
+
   modalPicker: {
-    height: 50,
+    height: 200, // Adjust height as needed
     width: '100%',
-    marginBottom: 20,
+    marginTop: -20,
   },
+  
+
+
+
+  
   modalButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
   },
   modalButton: {
-    borderRadius: 20,
+    borderRadius: 5,
     padding: 10,
     elevation: 2,
     width: '40%',
@@ -487,7 +523,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007bff',
   },
   modalCloseButton: {
-    backgroundColor: '#ccc',
+    backgroundColor: 'tomato',
   },
   textStyle: {
     color: 'white',
@@ -506,4 +542,3 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 });
- 

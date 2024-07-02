@@ -236,20 +236,20 @@ export default function UserHome() {
             <Text style={styles.modalText}>Select Location</Text>
             {/* Replace ScrollView with Picker */}
             <Picker
-              selectedValue={selectedLocation}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedLocation(itemValue)
-              }
-              style={styles.modalPicker}
-            >
-              {foodItems.map((item) => (
-                <Picker.Item
-                  key={item.location}
-                  label={item.location}
-                  value={item.location}
-                />
-              ))}
-            </Picker>
+  selectedValue={selectedLocation}
+  onValueChange={(itemValue, itemIndex) => setSelectedLocation(itemValue)}
+  style={styles.modalPicker}
+>
+  {foodItems.map((item) => (
+    <Picker.Item
+      key={item.location}
+      label={item.location}
+      value={item.location}
+    />
+  ))}
+</Picker>
+
+
             {/* Buttons */}
             <View style={styles.modalButtonContainer}>
               {/* Done Button */}
@@ -447,13 +447,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
   },
-  // Modal Styles
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
   },
+
+  
   modalView: {
     margin: 20,
     backgroundColor: 'white',
@@ -461,19 +462,30 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
     elevation: 5,
-   
+    width: '80%', // Adjust width as needed
+    paddingBottom: 30, // Increase bottom padding for more space
   },
+  
+  
+
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
   },
+
+
   modalPicker: {
-    height: 50,
+    height: 200, // Adjust height as needed
     width: '100%',
-    marginBottom: 20,
+    marginTop: -20,
   },
+  
+
+
+
+  
   modalButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',

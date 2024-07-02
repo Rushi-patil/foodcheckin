@@ -34,9 +34,7 @@ import EditVendorMemberProfile from '../../components/Screen/VendorMember/EditVe
 import VendorMemberProfileView from '../../components/Screen/VendorMember/VendorMemberProfileView';
 import VendorMemberSiderMenu from '../../components/Screen/VendorMember/VendorMemberSiderMenu';
 import VendorEmployeeHome from '../../components/Screen/VendorMember/VendorEmployeeHome';
-
 import { NavigationContainer } from '@react-navigation/native';
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 

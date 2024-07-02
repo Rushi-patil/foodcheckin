@@ -513,58 +513,60 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
   },
-  // Modal Styles
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
-    backgroundColor: 'rgba(0,0,0,0.5)',
   },
+  // Modal Styles
   modalView: {
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
     elevation: 5,
-    width: '80%', // Make the modal responsive
+    width: '80%', // Adjust width as needed
+    paddingBottom: 30, // Increase bottom padding for more space
   },
+  
+  
+
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
   },
+
+
   modalPicker: {
+    height: 200, // Adjust height as needed
     width: '100%',
-    height: 50,
+    marginTop: -20,
   },
+  
+
+
+
+  
   modalButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     width: '100%',
   },
   modalButton: {
-    borderRadius: 20,
+    borderRadius: 5,
     padding: 10,
     elevation: 2,
-    flex: 1,
-    margin: 5,
+    width: '40%',
   },
   modalDoneButton: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#007bff',
   },
   modalCloseButton: {
-    backgroundColor: '#f44336',
+    backgroundColor: 'tomato',
   },
   textStyle: {
     color: 'white',
