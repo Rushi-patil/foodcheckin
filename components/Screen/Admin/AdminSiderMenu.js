@@ -111,28 +111,25 @@ export default function AdminSiderMenu() {
 
     {/* Add Vendor */}
     <TouchableOpacity
-      onPress={() => {
-        // handle onPress
-      }}
+   
+   onPress={() => navigation.navigate('VendorRegistration')}
       style={styles.row}>
       <View style={[styles.rowIcon, { backgroundColor: '#fe9400' }]}>
         <FeatherIcon color="#fff" name="plus" size={20} />
       </View>
-      <Text style={styles.rowLabel}>Add Vendor</Text>
+      <Text style={styles.rowLabel}>Add Vendors</Text>
       <View style={styles.rowSpacer} />
       <FeatherIcon color="#C6C6C6" name="chevron-right" size={20} />
     </TouchableOpacity>
 
     {/* View Vendor */}
     <TouchableOpacity
-      onPress={() => {
-        // handle onPress
-      }}
+     onPress={() => navigation.navigate('ViewVendors')}
       style={styles.row}>
       <View style={[styles.rowIcon, { backgroundColor: '#8e8d91' }]}>
         <FeatherIcon color="#fff" name="eye" size={20} />
       </View>
-      <Text style={styles.rowLabel}>View Vendor</Text>
+      <Text style={styles.rowLabel}>View Vendors</Text>
       <View style={styles.rowSpacer} />
       <FeatherIcon color="#C6C6C6" name="chevron-right" size={20} />
     </TouchableOpacity>

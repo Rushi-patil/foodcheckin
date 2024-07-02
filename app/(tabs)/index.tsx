@@ -23,6 +23,8 @@ import EditAdminProfile from '../../components/Screen/Admin/EditAdminProfile';
 import ViewFeedback from '../../components/Screen/Admin/ViewFeeback';
 import AddBranches from '../../components/Screen/Admin/AddBranches';
 import ViewBranches from '../../components/Screen/Admin/ViewBranches';
+import VendorRegistration from '../../components/Screen/Admin/VendorRegistration';
+import ViewVendors from '../../components/Screen/Admin/ViewVendors';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -57,17 +59,21 @@ export default function HomeScreen() {
         <Stack.Screen name="AddFoodItems" component={AddFoodItems} />
         <Stack.Screen name="ManageFoodCollection" component={ManageFoodCollection} /> */}
         {/* Admin Screens */}
-        {/* <Stack.Screen name="AdminHome" component={AdminHome} /> */}
+       {/* <Stack.Screen name="AdminHome" component={AdminHome} /> 
+        <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
+        <Stack.Screen name="AdminProfileView" component={AdminProfileView} />
+        <Stack.Screen name="ViewFeedback" component={ViewFeedback} />
+        <Stack.Screen name="AddBranches" component={AddBranches} />
+        <Stack.Screen name="ViewBranches" component={ViewBranches} /> */}
        
 
       
         <Stack.Screen name="AdminHome" component={AdminHome} />
         <Stack.Screen name="AdminSiderMenu" component={AdminSiderMenu} />
-        <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
-        <Stack.Screen name="AdminProfileView" component={AdminProfileView} />
-        <Stack.Screen name="ViewFeedback" component={ViewFeedback} />
-        <Stack.Screen name="AddBranches" component={AddBranches} />
-        <Stack.Screen name="ViewBranches" component={ViewBranches} />
+        <Stack.Screen name="VendorRegistration" component={VendorRegistration} />
+        <Stack.Screen name="ViewVendors" component={ViewVendors} />
+ 
+       
        
 
       </Stack.Navigator>
