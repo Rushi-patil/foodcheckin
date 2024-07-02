@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity ,Modal ,CheckBox} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import CheckBox from 'react-native-check-box';
+
+// Dummy data for locations
+const initialLocations = [
+  { id: 1, name: 'Pune' },
+  { id: 2, name: 'Mumbai' },
+  { id: 3, name: 'Sangli' },
+  { id: 4, name: 'Nagpur' },
+  { id: 5, name: 'Goa' },
+  // Add more locations as needed
+];
 
 export default function VendorRegistration({ navigation }) {
   const [form, setForm] = useState({
@@ -9,23 +20,29 @@ export default function VendorRegistration({ navigation }) {
     mobileNumber: '',
     password: '',
     confirmPassword: '',
-    locations: [
-      { name: 'Pune', selected: false },
-      { name: 'Mumbai', selected: false },
-      { name: 'Sangli', selected: false },
-      // Add more locations as needed
-    ],
+    locations: initialLocations.map(loc => ({ ...loc, selected: false })),
   });
 
+  const [filteredLocations, setFilteredLocations] = useState(initialLocations);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    // Filter locations based on search query
+    const filtered = initialLocations.filter(loc =>
+      loc.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredLocations(filtered);
+  }, [searchQuery]);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
 
-  const handleLocationChange = (index) => {
-    const updatedLocations = [...form.locations];
-    updatedLocations[index].selected = !updatedLocations[index].selected;
+  const handleLocationChange = (id) => {
+    const updatedLocations = form.locations.map(loc =>
+      loc.id === id ? { ...loc, selected: !loc.selected } : loc
+    );
     setForm({ ...form, locations: updatedLocations });
   };
 
@@ -62,6 +79,7 @@ export default function VendorRegistration({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Enter Vendor Name"
+            placeholderTextColor="#999"
             value={form.vendorName}
             onChangeText={(vendorName) => setForm({ ...form, vendorName })}
           />
@@ -72,6 +90,7 @@ export default function VendorRegistration({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Enter Email"
+            placeholderTextColor="#999"
             value={form.email}
             onChangeText={(email) => setForm({ ...form, email })}
             keyboardType="email-address"
@@ -84,6 +103,7 @@ export default function VendorRegistration({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Enter Mobile Number"
+            placeholderTextColor="#999"
             value={form.mobileNumber}
             onChangeText={(mobileNumber) => setForm({ ...form, mobileNumber })}
             keyboardType="phone-pad"
@@ -95,6 +115,7 @@ export default function VendorRegistration({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Enter Password"
+            placeholderTextColor="#999"
             value={form.password}
             onChangeText={(password) => setForm({ ...form, password })}
             secureTextEntry
@@ -106,6 +127,7 @@ export default function VendorRegistration({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Confirm Password"
+            placeholderTextColor="#999"
             value={form.confirmPassword}
             onChangeText={(confirmPassword) => setForm({ ...form, confirmPassword })}
             secureTextEntry
@@ -125,12 +147,22 @@ export default function VendorRegistration({ navigation }) {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Select Locations</Text>
-              {form.locations.map((location, index) => (
-                <View key={index} style={styles.checkboxContainer}>
+              <View style={styles.searchContainer}>
+                <FeatherIcon name="search" size={20} color="#999" style={styles.searchIcon} />
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="Search Locations"
+                  placeholderTextColor="#999"
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                />
+              </View>
+              {filteredLocations.map(location => (
+                <View key={location.id} style={styles.checkboxContainer}>
                   <CheckBox
-                    value={location.selected}
-                    onValueChange={() => handleLocationChange(index)}
+                    isChecked={form.locations.find(loc => loc.id === location.id)?.selected || false}
+                    onClick={() => handleLocationChange(location.id)}
+                    checkBoxColor="#007bff"
                   />
                   <Text style={styles.checkboxLabel}>{location.name}</Text>
                 </View>
@@ -192,6 +224,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 8,
     fontSize: 16,
+    color: '#333', // Default text color
   },
   dropdownButton: {
     backgroundColor: 'grey',
@@ -199,7 +232,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     marginBottom: 24,
-    
   },
   dropdownButtonText: {
     color: '#fff',
@@ -219,11 +251,23 @@ const styles = StyleSheet.create({
     width: '80%',
     maxHeight: '80%',
   },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 10,
-    textAlign: 'center',
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    paddingVertical: 10,
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -235,12 +279,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
   },
+
   modalCloseButton: {
-    marginTop: 20,
-    alignSelf: 'center',
+    marginTop: 24,
+    backgroundColor: 'tomato',
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
   },
+  
   modalCloseButtonText: {
-    color: '#007bff',
+    color: '#fff',
     fontSize: 16,
   },
   registerButton: {

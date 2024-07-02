@@ -64,17 +64,17 @@ export default function HomeScreen() {
         <Stack.Screen name="UserFeedback" component={UserFeedback} /> */}
         
         {/* Vendor Screens */}
-        <Stack.Screen name="VendorHome" component={VendorHome} />
+        {/* <Stack.Screen name="VendorHome" component={VendorHome} />
         <Stack.Screen name="EditVendorProfile" component={EditVendorProfile} />
         <Stack.Screen name="VendorProfileView" component={VendorProfileView} />
         <Stack.Screen name="VendorSiderMenu" component={VendorSiderMenu} />
         <Stack.Screen name="ManageFoodCollection" component={ManageFoodCollection} />
         <Stack.Screen name="ViewFoodCollection" component={ViewFoodCollection} />
         <Stack.Screen name="AddMembers" component={AddMembers} />
-        <Stack.Screen name="ViewMembers" component={ViewMembers} />
+        <Stack.Screen name="ViewMembers" component={ViewMembers} /> */}
 
         {/* Admin Screens */}
-{/* 
+
          <Stack.Screen name="AdminHome" component={AdminHome} /> 
         <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
         <Stack.Screen name="AdminProfileView" component={AdminProfileView} />
@@ -84,7 +84,7 @@ export default function HomeScreen() {
         <Stack.Screen name="AdminSiderMenu" component={AdminSiderMenu} />
         <Stack.Screen name="VendorRegistration" component={VendorRegistration} />
         <Stack.Screen name="ViewVendors" component={ViewVendors} />
-        <Stack.Screen name="ViewUsers" component={ViewUsers} />         */}
+        <Stack.Screen name="ViewUsers" component={ViewUsers} />        
 
         {/* VendorMember Screens */}
 
