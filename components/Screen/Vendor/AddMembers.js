@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Picker } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Modal, Pressable } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import { Picker } from '@react-native-picker/picker';
 
 export default function AddMembers({ navigation }) {
   const [form, setForm] = useState({
@@ -10,21 +11,25 @@ export default function AddMembers({ navigation }) {
     password: '',
     confirmPassword: '',
     locations: [
-      { name: 'Pune', selected: false },
-      { name: 'Mumbai', selected: false },
-      { name: 'Sangli', selected: false },
+      { label: 'Pune', value: 'pune' },
+      { label: 'Mumbai', value: 'mumbai' },
+      { label: 'Sangli', value: 'sangli' },
     ],
-    selectedLocation: ''
+    selectedLocation: '',
+    isModalVisible: false,
   });
 
   const handleLocationChange = (itemValue) => {
     setForm({ ...form, selectedLocation: itemValue });
   };
 
+  const toggleModal = () => {
+    setForm({ ...form, isModalVisible: !form.isModalVisible });
+  };
+
   const handleSubmit = () => {
-    const selectedLocations = form.locations.filter(loc => loc.selected).map(loc => loc.name);
-    const formData = { ...form, selectedLocations };
-    console.log('Registering vendor with:', formData);
+    console.log('Form data:', form);
+    // Additional logic for form submission
     navigation.navigate('Home');
   };
 
@@ -39,19 +44,12 @@ export default function AddMembers({ navigation }) {
 
       <View style={styles.formContainer}>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Location</Text>
-          <Picker
-            selectedValue={form.selectedLocation}
-            style={styles.picker}
-            onValueChange={handleLocationChange}
-          >
-            <Picker.Item label="Select location..." value="" />
-            {form.locations.map((location) => (
-              <Picker.Item key={location.name} label={location.name} value={location.name} />
-            ))}
-          </Picker>
+          <Text style={styles.inputLabel}>Select Branch</Text>
+          <TouchableOpacity style={styles.selectLocationButton} onPress={toggleModal}>
+            <Text>{form.selectedLocation ? form.selectedLocation : 'Select location...'}</Text>
+          </TouchableOpacity>
         </View>
-        
+
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Member Name</Text>
           <TextInput
@@ -107,6 +105,34 @@ export default function AddMembers({ navigation }) {
           />
         </View>
 
+        {/* Modal for Location Selection */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={form.isModalVisible}
+          onRequestClose={toggleModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Select Branch</Text>
+              <Picker
+                selectedValue={form.selectedLocation}
+                style={styles.picker}
+                onValueChange={handleLocationChange}
+              >
+                <Picker.Item label="Select location..." value="" />
+                {form.locations.map((location) => (
+                  <Picker.Item key={location.value} label={location.label} value={location.value} />
+                ))}
+              </Picker>
+              <Pressable style={styles.closeButton} onPress={toggleModal}>
+                <Text style={styles.closeButtonText}>Close</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+
+        {/* Register Button */}
         <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
           <Text style={styles.registerButtonText}>Create Vendor</Text>
         </TouchableOpacity>
@@ -157,13 +183,54 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 16,
   },
-  picker: {
-    height: 50,
-    borderColor: '#ccc',
+  selectLocationButton: {
     borderWidth: 1,
-    borderRadius: 8,
+    borderColor: '#ccc',
     paddingVertical: 10,
     paddingHorizontal: 15,
+    borderRadius: 8,
+  },
+  picker: {
+   
+    height: 200, // Adjust height as needed
+    width: '100%',
+    marginTop: -20,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+
+    
+    
+  },
+  modalContent: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    elevation: 5,
+    width: '80%', // Adjust width as needed
+    paddingBottom: 30, // Increase bottom padding for more space
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+  closeButton: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    backgroundColor: 'tomato',
+    borderRadius: 8,
+  },
+  closeButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
   registerButton: {
     marginHorizontal: 24,
