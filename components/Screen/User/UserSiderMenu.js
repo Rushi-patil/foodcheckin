@@ -52,9 +52,9 @@ export default function UserSiderMenu() {
           <View>
             <Text style={styles.profileName}>John Doe</Text>
 
-            <Text style={styles.profileAddress}>
+            {/* <Text style={styles.profileAddress}>
               123 Maple Street. Anytown, PA 17101
-            </Text>
+            </Text> */}
           </View>
         </View>
 
@@ -196,12 +196,12 @@ const styles = StyleSheet.create({
     color: '#414d63',
     textAlign: 'center',
   },
-  profileAddress: {
-    marginTop: 5,
-    fontSize: 16,
-    color: '#989898',
-    textAlign: 'center',
-  },
+  // profileAddress: {
+  //   marginTop: 5,
+  //   fontSize: 16,
+  //   color: '#989898',
+  //   textAlign: 'center',
+  // },
   /** Section */
   section: {
     paddingHorizontal: 24,

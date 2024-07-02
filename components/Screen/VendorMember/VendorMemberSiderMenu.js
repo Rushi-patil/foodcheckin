@@ -37,7 +37,7 @@ export default function VendorMemberSiderMenu() {
                 style={styles.profileAvatar} />
 
               <TouchableOpacity
-              onPress={() => navigation.navigate('EditVendorProfile')}
+              onPress={() => navigation.navigate('EditVendorMemberProfile')}
 >
                 <View style={styles.profileAction}>
                   <FeatherIcon
@@ -52,16 +52,16 @@ export default function VendorMemberSiderMenu() {
           <View>
             <Text style={styles.profileName}>John Doe</Text>
 
-            <Text style={styles.profileAddress}>
+            {/* <Text style={styles.profileAddress}>
               123 Maple Street. Anytown, PA 17101
-            </Text>
+            </Text> */}
           </View>
         </View>
 
         <ScrollView>
           <View style={styles.section}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('VendorHome')}
+              onPress={() => navigation.navigate('VendorEmployeeHome')}
               style={styles.row}>
               <View style={[styles.rowIcon, { backgroundColor: '#007afe' }]}>
                 <FeatherIcon color="#fff" name="home" size={20} />
@@ -195,12 +195,12 @@ const styles = StyleSheet.create({
     color: '#414d63',
     textAlign: 'center',
   },
-  profileAddress: {
-    marginTop: 5,
-    fontSize: 16,
-    color: '#989898',
-    textAlign: 'center',
-  },
+  // profileAddress: {
+  //   marginTop: 5,
+  //   fontSize: 16,
+  //   color: '#989898',
+  //   textAlign: 'center',
+  // },
   /** Section */
   section: {
     paddingHorizontal: 24,
