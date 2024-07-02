@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, Modal } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -165,7 +164,7 @@ export default function UserHome() {
           <Text style={styles.locationText}>{selectedLocation}</Text>
           <FeatherIcon name="chevron-down" size={20} color="#333" style={styles.locationIcon} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('VendorSiderMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')}>
           <View style={styles.userCircle}>
             <Text style={styles.userInitials}>JD</Text>
           </View>
@@ -337,20 +336,23 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   filterButton: {
-    backgroundColor: '#007bff',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 10,
     marginHorizontal: 3,
+    backgroundColor: '#fff', // Default background color
   },
   filterText: {
-    color: '#fff',
     fontSize: 14,
+    color: '#000', // Default text color
   },
+ 
   selectedFilter: {
-    backgroundColor: '#0056b3',
+    backgroundColor: '#007bff', // Selected background color
   },
   selectedFilterText: {
+    color: '#fff', // Selected text color
+    fontSize: 14,
     fontWeight: 'bold',
   },
   foodList: {
@@ -500,7 +502,4 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 });
- 
- 
- 
  
