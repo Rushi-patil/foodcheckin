@@ -202,6 +202,7 @@ export default function VendorEmployeeHome() {
       <View style={styles.header}>
         <View style={styles.locationContainer}>
           <Text style={styles.locationText}>{selectedLocation}</Text>
+          
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('VendorMemberSiderMenu')}>
           <View style={styles.userCircle}>
@@ -369,6 +370,13 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#d3d3d3', 
   },
   locationText: {
     fontSize: 18,
@@ -391,10 +399,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
     borderRadius: 5,
     marginTop: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 20,
+    marginBottom: 6,
+    borderWidth: 1,
+    borderColor: '#d3d3d3', 
   },
   searchIcon: {
     marginRight: 10,
@@ -412,11 +424,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   filterButton: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 20,
     backgroundColor: '#f0f0f0',
-    marginRight: 10,
+    borderRadius: 10,
+    marginHorizontal: 3,
   },
   filterText: {
     fontSize: 16,

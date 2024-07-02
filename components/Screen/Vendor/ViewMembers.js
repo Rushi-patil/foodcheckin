@@ -8,14 +8,12 @@ const usersData = [
     userName: 'John Doe',
     email: 'john.doe@example.com',
     mobile: '123-456-7890',
-    
   },
   {
     id: 2,
     userName: 'Jane Smith',
     email: 'jane.smith@example.com',
     mobile: '987-654-3210',
-   
   },
   // Add more users as needed
 ];
@@ -44,13 +42,17 @@ export default function ViewMembers({ navigation }) {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search by Name..."
-          value={searchQuery}
-          onChangeText={text => setSearchQuery(text)}
-          onSubmitEditing={handleSearch}
-        />
+        <View style={styles.searchInput}>
+          <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Search by Name..."
+            placeholderTextColor="#666" // Adjust placeholder text color
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+            onSubmitEditing={handleSearch}
+          />
+        </View>
       </View>
 
       {/* User Cards */}
@@ -105,13 +107,21 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
   },
-  input: {
-    borderWidth: 1,
+  searchInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderColor: '#ccc',
+    borderWidth: 1,
     borderRadius: 8,
-    paddingVertical: 8,
     paddingHorizontal: 12,
-    marginBottom: 12,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    height: 40, // Adjust height as needed
+    color: '#333',
   },
   cardContainer: {
     paddingHorizontal: 24,
@@ -140,4 +150,3 @@ const styles = StyleSheet.create({
     color: '#666',
   },
 });
-

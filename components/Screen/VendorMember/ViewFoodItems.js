@@ -91,13 +91,17 @@ export default function ViewFoodItems({ navigation }) {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search by category..."
-          value={searchQuery}
-          onChangeText={text => setSearchQuery(text)}
-          onSubmitEditing={handleSearch}
-        />
+        <View style={styles.searchInput}>
+          <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Search by food name..."
+            placeholderTextColor="#666"
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+            onSubmitEditing={handleSearch}
+          />
+        </View>
       </View>
 
       {/* Food Item Cards */}
@@ -150,7 +154,7 @@ export default function ViewFoodItems({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Edit Food Item</Text>
+            <Text style={styles.modalTitle}>Edit Food Item</Text>
             
             {/* Form for editing food item */}
             <TextInput
@@ -210,7 +214,7 @@ export default function ViewFoodItems({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Confirm Delete</Text>
+            <Text style={styles.modalTitle}>Confirm Delete</Text>
             {selectedFoodItem && (
               <Text>Are you sure you want to delete {selectedFoodItem.foodItem}?</Text>
             )}
@@ -255,13 +259,22 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
   },
-  input: {
-    borderWidth: 1,
+  searchInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderColor: '#ccc',
+    borderWidth: 1,
     borderRadius: 8,
-    paddingVertical: 8,
     paddingHorizontal: 12,
-    marginBottom: 12,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    height: 40,
+    color: '#333',
+    paddingHorizontal: 12,
   },
   cardContainer: {
     paddingHorizontal: 24,
@@ -336,5 +349,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 4,
     alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 10,
   },
 });
