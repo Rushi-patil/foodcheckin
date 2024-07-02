@@ -138,8 +138,10 @@ export default function AddMembers({ navigation }) {
         </Modal>
 
         {/* Register Button */}
-        <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
-          <Text style={styles.registerButtonText}>Create Vendor</Text>
+  
+
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          <Text style={styles.submitButtonText}>Create Vendor</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -234,17 +236,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  registerButton: {
-    marginHorizontal: 24,
+  submitButton: {
     backgroundColor: '#007bff',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
+    width: '100%', // Ensure button takes full width
     marginTop: 24,
   },
-  registerButtonText: {
+  submitButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+    width: '100%', // Ensure text takes full width
+    textAlign: 'center', // Center text within the button
   },
+  
 });
