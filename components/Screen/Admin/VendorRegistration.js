@@ -1,41 +1,46 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity ,Modal ,CheckBox} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-export default function VendorRegistration() {
+export default function VendorRegistration({ navigation }) {
   const [form, setForm] = useState({
     vendorName: '',
     email: '',
     mobileNumber: '',
     password: '',
     confirmPassword: '',
+    locations: [
+      { name: 'Pune', selected: false },
+      { name: 'Mumbai', selected: false },
+      { name: 'Sangli', selected: false },
+      // Add more locations as needed
+    ],
   });
 
-  const handleChangeVendorName = (vendorName) => {
-    setForm({ ...form, vendorName });
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
   };
 
-  const handleChangeEmail = (email) => {
-    setForm({ ...form, email });
-  };
-
-  const handleChangeMobileNumber = (mobileNumber) => {
-    setForm({ ...form, mobileNumber });
-  };
-
-  const handleChangePassword = (password) => {
-    setForm({ ...form, password });
-  };
-
-  const handleChangeConfirmPassword = (confirmPassword) => {
-    setForm({ ...form, confirmPassword });
+  const handleLocationChange = (index) => {
+    const updatedLocations = [...form.locations];
+    updatedLocations[index].selected = !updatedLocations[index].selected;
+    setForm({ ...form, locations: updatedLocations });
   };
 
   const handleSubmit = () => {
     // Validate form fields (e.g., check if passwords match, validate email format)
 
+    // Include selected locations in the data being sent
+    const selectedLocations = form.locations.filter(loc => loc.selected).map(loc => loc.name);
+    const formData = {
+      ...form,
+      selectedLocations,
+    };
+
     // Simulate API call to register vendor
-    console.log('Registering vendor with:', form);
+    console.log('Registering vendor with:', formData);
     // Replace with actual logic to register vendor
 
     // Navigate to another screen after successful registration
@@ -58,7 +63,7 @@ export default function VendorRegistration() {
             style={styles.input}
             placeholder="Enter Vendor Name"
             value={form.vendorName}
-            onChangeText={handleChangeVendorName}
+            onChangeText={(vendorName) => setForm({ ...form, vendorName })}
           />
         </View>
 
@@ -68,7 +73,7 @@ export default function VendorRegistration() {
             style={styles.input}
             placeholder="Enter Email"
             value={form.email}
-            onChangeText={handleChangeEmail}
+            onChangeText={(email) => setForm({ ...form, email })}
             keyboardType="email-address"
             autoCapitalize="none"
           />
@@ -80,7 +85,7 @@ export default function VendorRegistration() {
             style={styles.input}
             placeholder="Enter Mobile Number"
             value={form.mobileNumber}
-            onChangeText={handleChangeMobileNumber}
+            onChangeText={(mobileNumber) => setForm({ ...form, mobileNumber })}
             keyboardType="phone-pad"
           />
         </View>
@@ -91,7 +96,7 @@ export default function VendorRegistration() {
             style={styles.input}
             placeholder="Enter Password"
             value={form.password}
-            onChangeText={handleChangePassword}
+            onChangeText={(password) => setForm({ ...form, password })}
             secureTextEntry
           />
         </View>
@@ -102,16 +107,46 @@ export default function VendorRegistration() {
             style={styles.input}
             placeholder="Confirm Password"
             value={form.confirmPassword}
-            onChangeText={handleChangeConfirmPassword}
+            onChangeText={(confirmPassword) => setForm({ ...form, confirmPassword })}
             secureTextEntry
           />
         </View>
-      </View>
 
-      {/* Register Button */}
-      <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
-        <Text style={styles.registerButtonText}>Create Vendor</Text>
-      </TouchableOpacity>
+        {/* Location Selection */}
+        <TouchableOpacity style={styles.dropdownButton} onPress={toggleModal}>
+          <Text style={styles.dropdownButtonText}>Select Locations</Text>
+        </TouchableOpacity>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isModalVisible}
+          onRequestClose={toggleModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Select Locations</Text>
+              {form.locations.map((location, index) => (
+                <View key={index} style={styles.checkboxContainer}>
+                  <CheckBox
+                    value={location.selected}
+                    onValueChange={() => handleLocationChange(index)}
+                  />
+                  <Text style={styles.checkboxLabel}>{location.name}</Text>
+                </View>
+              ))}
+              <TouchableOpacity style={styles.modalCloseButton} onPress={toggleModal}>
+                <Text style={styles.modalCloseButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        {/* Register Button */}
+        <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
+          <Text style={styles.registerButtonText}>Create Vendor</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -158,13 +193,63 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 16,
   },
+  dropdownButton: {
+    backgroundColor: 'grey',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 24,
+    
+  },
+  dropdownButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    maxHeight: '80%',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  checkboxLabel: {
+    marginLeft: 8,
+    fontSize: 16,
+    color: '#333',
+  },
+  modalCloseButton: {
+    marginTop: 20,
+    alignSelf: 'center',
+  },
+  modalCloseButtonText: {
+    color: '#007bff',
+    fontSize: 16,
+  },
   registerButton: {
     marginHorizontal: 24,
-    marginTop: 24,
     backgroundColor: '#007bff',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
+    marginTop: 24,
   },
   registerButtonText: {
     color: '#fff',
@@ -172,4 +257,3 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
-
