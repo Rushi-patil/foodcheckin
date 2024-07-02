@@ -64,6 +64,7 @@ export default function HomeScreen() {
         <Stack.Screen name="UserSiderMenu" component={UserSiderMenu} />
         <Stack.Screen name="UserProfileView" component={UserProfileView} />
         <Stack.Screen name="UserFeedback" component={UserFeedback} />
+        
         {/* Vendor Screens */}
         {/* <Stack.Screen name="VendorHome" component={VendorHome} />
         <Stack.Screen name="EditVendorProfile" component={EditVendorProfile} />
