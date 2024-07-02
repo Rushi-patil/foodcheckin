@@ -60,8 +60,7 @@ export default function VendorRegistration({ navigation }) {
     console.log('Registering vendor with:', formData);
     // Replace with actual logic to register vendor
 
-    // Navigate to another screen after successful registration
-    navigation.navigate('Home'); // Replace 'Home' with appropriate screen name
+
   };
 
   return (

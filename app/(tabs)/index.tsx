@@ -88,13 +88,13 @@ export default function HomeScreen() {
 
         {/* VendorMember Screens */}
 
-        <Stack.Screen name="VendorEmployeeHome" component={VendorEmployeeHome} />
+        {/* <Stack.Screen name="VendorEmployeeHome" component={VendorEmployeeHome} />
        <Stack.Screen name="VendorMemberSiderMenu" component={VendorMemberSiderMenu} />
         <Stack.Screen name="AddFoodItems" component={AddFoodItems} />
         <Stack.Screen name="ViewFoodItems" component={ViewFoodItems} />
         <Stack.Screen name="EditVendorMemberProfile" component={EditVendorMemberProfile} />
         <Stack.Screen name="VendorMemberProfileView" component={VendorMemberProfileView} /> 
-    
+     */}
 
         
 
