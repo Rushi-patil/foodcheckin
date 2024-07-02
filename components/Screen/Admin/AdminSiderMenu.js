@@ -136,9 +136,9 @@ export default function AdminSiderMenu() {
 
     {/* View Users */}
     <TouchableOpacity
-      onPress={() => {
-        // handle onPress
-      }}
+  onPress={() => navigation.navigate('ViewUsers')}
+
+      
       style={styles.row}>
       <View style={[styles.rowIcon, { backgroundColor: '#5a9bd4' }]}>
         <FeatherIcon color="#fff" name="users" size={20} />

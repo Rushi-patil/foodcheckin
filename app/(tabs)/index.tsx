@@ -25,6 +25,7 @@ import AddBranches from '../../components/Screen/Admin/AddBranches';
 import ViewBranches from '../../components/Screen/Admin/ViewBranches';
 import VendorRegistration from '../../components/Screen/Admin/VendorRegistration';
 import ViewVendors from '../../components/Screen/Admin/ViewVendors';
+import ViewUsers from '../../components/Screen/Admin/ViewUsers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -72,6 +73,7 @@ export default function HomeScreen() {
         <Stack.Screen name="AdminSiderMenu" component={AdminSiderMenu} />
         <Stack.Screen name="VendorRegistration" component={VendorRegistration} />
         <Stack.Screen name="ViewVendors" component={ViewVendors} />
+        <Stack.Screen name="ViewUsers" component={ViewUsers} />
  
        
        
