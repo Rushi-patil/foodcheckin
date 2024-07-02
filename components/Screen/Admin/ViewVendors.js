@@ -123,7 +123,7 @@ export default function ViewVendors({ navigation }) {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Search by vendor name..."
+          placeholder="Search By Vendor Name..."
           value={searchQuery}
           onChangeText={text => setSearchQuery(text)}
           onSubmitEditing={handleSearch}

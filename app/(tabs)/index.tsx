@@ -32,7 +32,9 @@ import ViewUsers from '../../components/Screen/Admin/ViewUsers';
 import ViewFoodItems from '../../components/Screen/VendorMember/ViewFoodItems';
 import EditVendorMemberProfile from '../../components/Screen/VendorMember/EditVendorMemberProfile';
 import VendorMemberProfileView from '../../components/Screen/VendorMember/VendorMemberProfileView';
-import VendorMemberSiderMenu from '../../components/Screen/VendorMember/VendorMemberSiderMenu'
+import VendorMemberSiderMenu from '../../components/Screen/VendorMember/VendorMemberSiderMenu';
+import VendorEmployeeHome from '../../components/Screen/VendorMember/VendorEmployeeHome';
+
 import { NavigationContainer } from '@react-navigation/native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -63,14 +65,14 @@ export default function HomeScreen() {
         <Stack.Screen name="UserProfileView" component={UserProfileView} />
         <Stack.Screen name="UserFeedback" component={UserFeedback} /> */}
         {/* Vendor Screens */}
-        <Stack.Screen name="VendorHome" component={VendorHome} />
+        {/* <Stack.Screen name="VendorHome" component={VendorHome} />
         <Stack.Screen name="EditVendorProfile" component={EditVendorProfile} />
         <Stack.Screen name="VendorProfileView" component={VendorProfileView} />
         <Stack.Screen name="VendorSiderMenu" component={VendorSiderMenu} />
         <Stack.Screen name="ManageFoodCollection" component={ManageFoodCollection} />
         <Stack.Screen name="ViewFoodCollection" component={ViewFoodCollection} />
         <Stack.Screen name="AddMembers" component={AddMembers} />
-        <Stack.Screen name="ViewMembers" component={ViewMembers} />
+        <Stack.Screen name="ViewMembers" component={ViewMembers} /> */}
 
         {/* Admin Screens */}
 
@@ -88,11 +90,15 @@ export default function HomeScreen() {
 
         {/* VendorMember Screens */}
 
-        {/* <Stack.Screen name="VendorMemberSiderMenu" component={VendorMemberSiderMenu} />
+        <Stack.Screen name="VendorEmployeeHome" component={VendorEmployeeHome} />
+       <Stack.Screen name="VendorMemberSiderMenu" component={VendorMemberSiderMenu} />
         <Stack.Screen name="AddFoodItems" component={AddFoodItems} />
         <Stack.Screen name="ViewFoodItems" component={ViewFoodItems} />
         <Stack.Screen name="EditVendorMemberProfile" component={EditVendorMemberProfile} />
-        <Stack.Screen name="VendorMemberProfileView" component={VendorMemberProfileView} /> */}
+        <Stack.Screen name="VendorMemberProfileView" component={VendorMemberProfileView} /> 
+    
+
+        
 
 
 

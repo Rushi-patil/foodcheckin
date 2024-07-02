@@ -85,7 +85,7 @@ export default function ViewBranches({ navigation }) {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Search by country..."
+          placeholder="Search By Country..."
           value={searchQuery}
           onChangeText={text => setSearchQuery(text)}
           onSubmitEditing={handleSearch}
