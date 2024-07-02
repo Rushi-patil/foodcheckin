@@ -89,6 +89,7 @@ export default function AddFoodItems({ navigation }) {
           <Text style={styles.sectionTitle}>Add New Food Item</Text>
 
           <View style={styles.formContainer}>
+
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Food Item</Text>
               <Picker
@@ -100,6 +101,21 @@ export default function AddFoodItems({ navigation }) {
                 <Picker.Item label="Food Item 1" value="Food Item 1" />
                 <Picker.Item label="Food Item 2" value="Food Item 2" />
                 <Picker.Item label="Food Item 3" value="Food Item 3" />
+                {/* Add more items as needed */}
+              </Picker>
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Branch</Text>
+              <Picker
+                selectedValue={form.foodItem}
+                style={styles.picker}
+                onValueChange={(itemValue) => handleChangeFoodItem(itemValue)}
+              >
+                <Picker.Item label="Select food item..." value="" />
+                <Picker.Item label="Pune" value="Pune" />
+                <Picker.Item label="Mumbai" value="Mumbai" />
+                <Picker.Item label="Sangli" value="Sangli" />
                 {/* Add more items as needed */}
               </Picker>
             </View>
