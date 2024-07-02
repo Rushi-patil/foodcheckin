@@ -26,7 +26,7 @@ const SplashScreen = () => {
         }).start(() => {
           navigation.navigate('Signup'); 
         });
-      }, 3000); 
+      }, 2000); 
     });
   }, []);
 

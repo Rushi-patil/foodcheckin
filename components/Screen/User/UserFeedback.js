@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList, Alert } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 export default function UserFeedback({ navigation }) {
   const [form, setForm] = useState({
-    type: 'feedback',
+    type: '',
     description: '',
   });
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedType, setSelectedType] = useState('Feedback');
+  const [selectedType, setSelectedType] = useState('');
 
   const handleChangeType = (type) => {
     setSelectedType(type);
@@ -22,6 +22,11 @@ export default function UserFeedback({ navigation }) {
   };
 
   const handleSubmit = () => {
+    if (selectedType === '') {
+      Alert.alert('Please select a Type for Type');
+      return;
+    }
+
     // Simulate API call to submit feedback
     console.log('Submitting feedback with:', form);
     // Replace with actual logic to submit feedback
@@ -66,18 +71,20 @@ export default function UserFeedback({ navigation }) {
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Type</Text>
               <TouchableOpacity style={styles.picker} onPress={() => setModalVisible(true)}>
-                <Text style={styles.pickerText}>{selectedType}</Text>
+                <Text style={styles.pickerText}>{selectedType || 'Please select Type'}</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Description</Text>
               <TextInput
-                style={styles.textArea}
-                value={form.description}
-                onChangeText={handleChangeDescription}
-                multiline
-              />
+  style={styles.textArea}
+  value={form.description}
+  onChangeText={handleChangeDescription}
+  multiline
+  placeholder="Enter your description here"
+/>
+
             </View>
           </View>
         </View>
@@ -130,16 +137,16 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     paddingHorizontal: 24,
-    paddingVertical: 12, // Adjust vertical padding for the section
+    paddingVertical: 12,
   },
   sectionTitle: {
     fontSize: 17,
     fontWeight: '600',
     color: '#333',
-    marginBottom: 25, // Add margin bottom to separate from content
+    marginBottom: 25,
   },
   formContainer: {
-    marginTop: 12, // Adjust margin top for spacing
+    marginTop: 12,
   },
   inputContainer: {
     marginBottom: 24,

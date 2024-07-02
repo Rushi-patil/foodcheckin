@@ -295,6 +295,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 10,
     elevation: 2,
+    borderWidth: 1,
+    borderColor: '#d3d3d3', 
   },
   locationText: {
     fontSize: 16,
@@ -321,7 +323,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     marginBottom: 16,
-  },
+    borderWidth: 1,
+    borderColor: '#d3d3d3', 
+  },  
   searchIcon: {
     marginRight: 8,
   },
@@ -457,6 +461,7 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
     elevation: 5,
+   
   },
   modalText: {
     marginBottom: 15,
@@ -475,7 +480,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   modalButton: {
-    borderRadius: 20,
+    borderRadius: 5,
     padding: 10,
     elevation: 2,
     width: '40%',
@@ -484,7 +489,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007bff',
   },
   modalCloseButton: {
-    backgroundColor: '#ccc',
+    backgroundColor: 'tomato',
   },
   textStyle: {
     color: 'white',
