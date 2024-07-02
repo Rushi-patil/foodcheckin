@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View ,Platform} from 'react-native';
 import Login from "../../components/Development/Login"
 import Signup from '../../components/Development/Signup';
 import ForgotPassword from '../../components/Development/Forgotpassword';
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
-    paddingTop: 38,
+    paddingTop: Platform.OS === 'ios' ? 50 : 38,
   },
 
 });
