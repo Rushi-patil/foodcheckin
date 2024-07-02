@@ -164,7 +164,7 @@ export default function UserHome() {
           <Text style={styles.locationText}>{selectedLocation}</Text>
           <FeatherIcon name="chevron-down" size={20} color="#333" style={styles.locationIcon} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('UserSiderMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate('VendorSiderMenu')}>
           <View style={styles.userCircle}>
             <Text style={styles.userInitials}>JD</Text>
           </View>
