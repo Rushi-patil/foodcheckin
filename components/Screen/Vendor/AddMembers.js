@@ -57,6 +57,7 @@ export default function AddMembers({ navigation }) {
             placeholder="Enter Member Name"
             value={form.MemberName}
             onChangeText={(MemberName) => setForm({ ...form, MemberName })}
+                placeholderTextColor="#6b7280"
           />
         </View>
 
@@ -69,6 +70,7 @@ export default function AddMembers({ navigation }) {
             onChangeText={(email) => setForm({ ...form, email })}
             keyboardType="email-address"
             autoCapitalize="none"
+                placeholderTextColor="#6b7280"
           />
         </View>
 
@@ -80,6 +82,7 @@ export default function AddMembers({ navigation }) {
             value={form.mobileNumber}
             onChangeText={(mobileNumber) => setForm({ ...form, mobileNumber })}
             keyboardType="phone-pad"
+                placeholderTextColor="#6b7280"
           />
         </View>
 
@@ -91,6 +94,7 @@ export default function AddMembers({ navigation }) {
             value={form.password}
             onChangeText={(password) => setForm({ ...form, password })}
             secureTextEntry
+                placeholderTextColor="#6b7280"
           />
         </View>
 
@@ -102,6 +106,7 @@ export default function AddMembers({ navigation }) {
             value={form.confirmPassword}
             onChangeText={(confirmPassword) => setForm({ ...form, confirmPassword })}
             secureTextEntry
+                placeholderTextColor="#6b7280"
           />
         </View>
 
@@ -201,9 +206,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-
-    
-    
   },
   modalContent: {
     margin: 20,
