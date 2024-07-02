@@ -102,10 +102,28 @@ export default function VendorSiderMenu() {
               <View style={[styles.rowIcon, { backgroundColor: 'tomato' }]}>
                 {/* <FeatherIcon color="#fff" name="folder" size={20} /> */}
                 {/* <FeatherIcon color="#fff" name="layers" size={20} /> */}
-                <FeatherIcon color="#fff" name="edit" size={20} />
+                <FeatherIcon color="#fff" name="plus" size={20} />
               </View>
 
-              <Text style={styles.rowLabel}>Manage food collection</Text>
+              <Text style={styles.rowLabel}>Add food collection</Text>
+
+              <View style={styles.rowSpacer} />
+
+              <FeatherIcon
+                color="#C6C6C6"
+                name="chevron-right"
+                size={20} />
+            </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={() => navigation.navigate('ViewFoodCollection')}
+              style={styles.row}>
+              <View style={[styles.rowIcon, { backgroundColor: '#3bd1a4' }]}>
+                {/* <FeatherIcon color="#fff" name="folder" size={20} /> */}
+                {/* <FeatherIcon color="#fff" name="layers" size={20} /> */}
+                <FeatherIcon color="#fff" name="eye" size={20} />
+              </View>
+
+              <Text style={styles.rowLabel}>View food collection</Text>
 
               <View style={styles.rowSpacer} />
 
@@ -116,14 +134,31 @@ export default function VendorSiderMenu() {
             </TouchableOpacity>
 
             <TouchableOpacity
-                    onPress={() => navigation.navigate('AddFoodItems')}
+                    onPress={() => navigation.navigate('AddMembers')}
               style={styles.row}>
               <View style={[styles.rowIcon, { backgroundColor: '#fe9400' }]}>
                 <FeatherIcon color="#fff" name="plus" size={20} />
                 {/* <FeatherIcon color="#fff" name="shopping-cart" size={20} /> */}
               </View>
 
-              <Text style={styles.rowLabel}>Add food items</Text>
+              <Text style={styles.rowLabel}>Add Members</Text>
+
+              <View style={styles.rowSpacer} />
+
+              <FeatherIcon
+                color="#C6C6C6"
+                name="chevron-right"
+                size={20} />
+            </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={() => navigation.navigate('ViewMembers')}
+              style={styles.row}>
+              <View style={[styles.rowIcon, { backgroundColor: '#726dc7' }]}>
+                <FeatherIcon color="#fff" name="eye" size={20} />
+                {/* <FeatherIcon color="#fff" name="shopping-cart" size={20} /> */}
+              </View>
+
+              <Text style={styles.rowLabel}>View Members</Text>
 
               <View style={styles.rowSpacer} />
 
