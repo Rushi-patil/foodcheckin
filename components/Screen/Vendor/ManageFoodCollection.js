@@ -1,35 +1,34 @@
-
 import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList, Image } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import * as ImagePicker from 'expo-image-picker';
- 
+
 export default function ManageFoodCollection({ navigation }) {
   const [form, setForm] = useState({
     foodname: '',
     description: '',
-    foodType: 'Veg',
+    foodType: '',
     photo: null,
   });
- 
+
   const [foodTypeModalVisible, setFoodTypeModalVisible] = useState(false);
-  const [selectedFoodType, setSelectedFoodType] = useState('Veg');
- 
+  const [selectedFoodType, setSelectedFoodType] = useState('');
+
   const handleChangeFoodType = (type) => {
     setSelectedFoodType(type);
     setForm({ ...form, foodType: type });
     setFoodTypeModalVisible(false);
   };
- 
+
   const handleChangeName = (foodname) => {
     setForm({ ...form, foodname });
   };
- 
+
   const handleChangeDescription = (description) => {
     setForm({ ...form, description });
   };
- 
+
   const handlePickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -37,25 +36,25 @@ export default function ManageFoodCollection({ navigation }) {
       aspect: [4, 3],
       quality: 1,
     });
- 
+
     if (!result.canceled) {
       setForm({ ...form, photo: result.uri });
     }
   };
- 
+
   const handleSubmit = () => {
     // Simulate API call to submit food item
     console.log('Submitting food item with:', form);
     // Replace with actual logic to submit food item
- 
+
     // Navigate back to previous screen after submission
     navigation.goBack();
   };
- 
+
   const renderFoodTypeItem = ({ item }) => {
     const iconName = item === 'Veg' ? 'circle' : 'circle';
     const iconColor = item === 'Veg' ? 'green' : 'red';
- 
+
     return (
       <TouchableOpacity style={styles.pickerItem} onPress={() => handleChangeFoodType(item)}>
         <MaterialIcon name={iconName} size={24} color={iconColor} style={styles.pickerItemIcon} />
@@ -63,20 +62,20 @@ export default function ManageFoodCollection({ navigation }) {
       </TouchableOpacity>
     );
   };
- 
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <FeatherIcon name="chevron-left" size={24} color="#333"  />
+            <FeatherIcon name="chevron-left" size={24} color="#333" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Food Collection</Text>
         </View>
- 
+
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Add Food Item To Collection </Text>
- 
+          <Text style={styles.sectionTitle}>Add Food Item To Collection</Text>
+
           <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Food Name</Text>
@@ -85,9 +84,10 @@ export default function ManageFoodCollection({ navigation }) {
                 value={form.foodname}
                 onChangeText={handleChangeName}
                 placeholder="Enter Food Name"
+                placeholderTextColor="#999"
               />
             </View>
- 
+
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Description</Text>
               <TextInput
@@ -95,25 +95,30 @@ export default function ManageFoodCollection({ navigation }) {
                 value={form.description}
                 onChangeText={handleChangeDescription}
                 multiline
-                placeholder='Enter Food Description'
+                placeholder="Enter Food Description"
+                placeholderTextColor="#999"
               />
             </View>
- 
+
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Food Type</Text>
               <TouchableOpacity style={styles.picker} onPress={() => setFoodTypeModalVisible(true)}>
                 <View style={styles.pickerRow}>
-                  <MaterialIcon
-                    name={selectedFoodType === 'Veg' ? 'circle' : 'circle'}
-                    size={24}
-                    color={selectedFoodType === 'Veg' ? 'green' : 'red'}
-                    style={styles.pickerItemIcon}
-                  />
-                  <Text style={styles.pickerText}>{selectedFoodType}</Text>
+                  {selectedFoodType ? (
+                    <MaterialIcon
+                      name={selectedFoodType === 'Veg' ? 'circle' : 'circle'}
+                      size={24}
+                      color={selectedFoodType === 'Veg' ? 'green' : 'red'}
+                      style={styles.pickerItemIcon}
+                    />
+                  ) : null}
+                  <Text style={styles.pickerText}>
+                    {selectedFoodType || 'Please select Food Type'}
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>
- 
+
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Photo</Text>
               <TouchableOpacity style={styles.photoPicker} onPress={handlePickImage}>
@@ -123,12 +128,12 @@ export default function ManageFoodCollection({ navigation }) {
             </View>
           </View>
         </View>
- 
+
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
       </View>
- 
+
       <Modal visible={foodTypeModalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -147,7 +152,7 @@ export default function ManageFoodCollection({ navigation }) {
     </SafeAreaView>
   );
 }
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -223,9 +228,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 8,
     fontSize: 16,
-    
   },
- 
   submitButton: {
     marginHorizontal: 24,
     marginTop: 24,
@@ -297,4 +300,3 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
- 
