@@ -167,9 +167,10 @@ export default function VendorRegistration({ navigation }) {
                   <Text style={styles.checkboxLabel}>{location.name}</Text>
                 </View>
               ))}
-              <TouchableOpacity style={styles.modalCloseButton} onPress={toggleModal}>
-                <Text style={styles.modalCloseButtonText}>Close</Text>
-              </TouchableOpacity>
+         <TouchableOpacity style={styles.modalCloseButton} onPress={toggleModal}>
+  <Text style={styles.modalCloseButtonText}>Close</Text>
+</TouchableOpacity>
+
             </View>
           </View>
         </Modal>
