@@ -78,13 +78,13 @@ export default function UserFeedback({ navigation }) {
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Description</Text>
               <TextInput
-  style={styles.textArea}
-  value={form.description}
-  onChangeText={handleChangeDescription}
-  multiline
-  placeholder="Enter your description here"
-/>
-
+                style={styles.textArea}
+                value={form.description}
+                onChangeText={handleChangeDescription}
+                multiline
+                placeholder="Enter your description here"
+                placeholderTextColor="#999"
+              />
             </View>
           </View>
         </View>
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
   },
   pickerText: {
     fontSize: 16,
+    color: '#333',
   },
   textArea: {
     borderWidth: 1,
@@ -176,6 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     height: 120,
     textAlignVertical: 'top',
+    color: '#333',
   },
   submitButton: {
     marginHorizontal: 24,

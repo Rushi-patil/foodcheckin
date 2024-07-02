@@ -45,6 +45,7 @@ export default function AddBranches({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Enter Country"
+            placeholderTextColor="#999"
             value={form.country}
             onChangeText={handleChangeCountry}
           />
@@ -55,6 +56,7 @@ export default function AddBranches({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Enter City"
+            placeholderTextColor="#999" // Ensuring placeholder text color is visible
             value={form.city}
             onChangeText={handleChangeCity}
           />
@@ -65,6 +67,7 @@ export default function AddBranches({ navigation }) {
           <TextInput
             style={styles.input}
             placeholder="Enter Branch"
+            placeholderTextColor="#999" // Ensuring placeholder text color is visible
             value={form.branch}
             onChangeText={handleChangeBranch}
           />
@@ -120,6 +123,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 8,
     fontSize: 16,
+    color: '#333', // Ensuring text color is distinct from placeholder
   },
   updateButton: {
     marginHorizontal: 24,

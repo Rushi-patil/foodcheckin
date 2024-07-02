@@ -76,8 +76,8 @@ export default function HomeScreen() {
         <Stack.Screen name="ViewMembers" component={ViewMembers} /> */}
 
         {/* Admin Screens */}
-
-         {/* <Stack.Screen name="AdminHome" component={AdminHome} /> 
+{/* 
+         <Stack.Screen name="AdminHome" component={AdminHome} /> 
         <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
         <Stack.Screen name="AdminProfileView" component={AdminProfileView} />
         <Stack.Screen name="ViewFeedback" component={ViewFeedback} />
