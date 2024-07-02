@@ -60,20 +60,19 @@ export default function HomeScreen() {
         <Stack.Screen name="AddFoodItems" component={AddFoodItems} />
         <Stack.Screen name="ManageFoodCollection" component={ManageFoodCollection} /> */}
         {/* Admin Screens */}
-       {/* <Stack.Screen name="AdminHome" component={AdminHome} /> 
+
+       <Stack.Screen name="AdminHome" component={AdminHome} /> 
         <Stack.Screen name="EditAdminProfile" component={EditAdminProfile} />
         <Stack.Screen name="AdminProfileView" component={AdminProfileView} />
         <Stack.Screen name="ViewFeedback" component={ViewFeedback} />
         <Stack.Screen name="AddBranches" component={AddBranches} />
-        <Stack.Screen name="ViewBranches" component={ViewBranches} /> */}
-       
-
-      
-        <Stack.Screen name="AdminHome" component={AdminHome} />
+        <Stack.Screen name="ViewBranches" component={ViewBranches} />
         <Stack.Screen name="AdminSiderMenu" component={AdminSiderMenu} />
         <Stack.Screen name="VendorRegistration" component={VendorRegistration} />
         <Stack.Screen name="ViewVendors" component={ViewVendors} />
-        <Stack.Screen name="ViewUsers" component={ViewUsers} />
+        <Stack.Screen name="ViewUsers" component={ViewUsers} />       
+
+
  
        
        
