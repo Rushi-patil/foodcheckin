@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList, Picker } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import DateTimePicker from '@react-native-community/datetimepicker'; // Import DateTimePicker
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Picker } from '@react-native-picker/picker';
 
 export default function AddFoodItems({ navigation }) {
   const [form, setForm] = useState({
     foodItem: '',
-    date: new Date(), // Default date is set to current date
+    branch: '',
+    date: new Date(),
     price: '',
     category: 'All day available',
   });
 
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All day available');
-  const [datePickerVisible, setDatePickerVisible] = useState(false); // Define state for date picker visibility
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
 
-  const handleChangeFoodItem = (foodItem) => {
-    setForm({ ...form, foodItem });
-  };
+
 
   const handleChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || form.date;
     setForm({ ...form, date: currentDate });
-    setDatePickerVisible(false); // Hide date picker after selecting date
+    setDatePickerVisible(false);
   };
 
   const handleChangePrice = (price) => {
@@ -37,26 +37,16 @@ export default function AddFoodItems({ navigation }) {
   };
 
   const handleSubmit = () => {
-    // Simulate API call to submit food item
     console.log('Submitting food item with:', form);
-    // Replace with actual logic to submit food item
-
-    // Navigate back to previous screen after submission
     navigation.goBack();
   };
 
-  const renderCategoryItem = ({ item }) => {
-    return (
-      <TouchableOpacity style={styles.pickerItem} onPress={() => handleChangeCategory(item)}>
-        {item === selectedCategory ? (
-          <MaterialIcon name={getCategoryIcon(item)} size={24} color="#007bff" style={styles.pickerItemIcon} />
-        ) : (
-          <MaterialIcon name={getCategoryIcon(item)} size={24} color="#ccc" style={styles.pickerItemIcon} />
-        )}
-        <Text style={styles.pickerItemText}>{item}</Text>
-      </TouchableOpacity>
-    );
-  };
+  const renderCategoryItem = ({ item }) => (
+    <TouchableOpacity style={styles.pickerItem} onPress={() => handleChangeCategory(item)}>
+      <MaterialIcon name={getCategoryIcon(item)} size={24} color={item === selectedCategory ? "#007bff" : "#ccc"} style={styles.pickerItemIcon} />
+      <Text style={styles.pickerItemText}>{item}</Text>
+    </TouchableOpacity>
+  );
 
   const getCategoryIcon = (category) => {
     switch (category) {
@@ -89,36 +79,9 @@ export default function AddFoodItems({ navigation }) {
           <Text style={styles.sectionTitle}>Add New Food Item</Text>
 
           <View style={styles.formContainer}>
+            
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Food Item</Text>
-              <Picker
-                selectedValue={form.foodItem}
-                style={styles.picker}
-                onValueChange={(itemValue) => handleChangeFoodItem(itemValue)}
-              >
-                <Picker.Item label="Select food item..." value="" />
-                <Picker.Item label="Food Item 1" value="Food Item 1" />
-                <Picker.Item label="Food Item 2" value="Food Item 2" />
-                <Picker.Item label="Food Item 3" value="Food Item 3" />
-                {/* Add more items as needed */}
-              </Picker>
-            </View>
-
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Branch</Text>
-              <Picker
-                selectedValue={form.foodItem}
-                style={styles.picker}
-                onValueChange={(itemValue) => handleChangeFoodItem(itemValue)}
-              >
-                <Picker.Item label="Select food item..." value="" />
-                <Picker.Item label="Pune" value="Pune" />
-                <Picker.Item label="Mumbai" value="Mumbai" />
-                <Picker.Item label="Sangli" value="Sangli" />
-                {/* Add more items as needed */}
-              </Picker>
-            </View>
+          
 
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Date</Text>
@@ -169,14 +132,13 @@ export default function AddFoodItems({ navigation }) {
         </View>
       </Modal>
 
-      {/* DateTimePicker */}
       {datePickerVisible && (
         <DateTimePicker
           value={form.date}
           mode="date"
           display="default"
           onChange={handleChangeDate}
-          maximumDate={new Date()} // Optional: Set maximum date to prevent future dates
+          maximumDate={new Date()}
         />
       )}
     </SafeAreaView>

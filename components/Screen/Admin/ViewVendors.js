@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Alert, CheckBox, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, ScrollView } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import CheckBox from 'react-native-check-box';
 
 const vendorsData = [
   {
@@ -223,6 +224,7 @@ export default function ViewVendors({ navigation }) {
                 <CheckBox
                   value={isBranchSelected(branch.id)}
                   onValueChange={() => toggleBranchSelection(branch.id)}
+                      checkBoxColor="#007bff"
                 />
                 <Text style={styles.checkboxLabel}>{getBranchName(branch.id)}</Text>
               </View>

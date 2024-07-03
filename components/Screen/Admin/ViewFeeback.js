@@ -37,10 +37,13 @@ export default function ViewFeedback({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
+       <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <FeatherIcon name="chevron-left" size={24} color="#333" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Users Messages</Text>
+      </View>
       <View style={styles.filterContainer}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-            <FeatherIcon name="chevron-left" size={24} color="#333" />
-          </TouchableOpacity>
         <TouchableOpacity
           style={[styles.filterButton, activeFilter === 'all' && styles.activeFilterButton]}
           onPress={() => filterFeedback('all')}
@@ -80,6 +83,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    textAlign: 'center',
+    flex: 1,
   },
   filterContainer: {
     flexDirection: 'row',

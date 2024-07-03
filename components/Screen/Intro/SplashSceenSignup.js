@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '500',
     color: '#fff',
     textAlign: 'center',
