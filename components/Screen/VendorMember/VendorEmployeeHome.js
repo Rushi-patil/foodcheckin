@@ -36,10 +36,7 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location,
             <FeatherIcon name="slash" size={16} color="red" style={styles.nonVegIcon} />
           )}
         </View>
-        <View style={styles.vendorInfo}>
-          <Text style={styles.vendorName}>{vendor}</Text>
-          <Text style={styles.vendorLocation}>{location}</Text>
-        </View>
+      
  
         {/* Edit and Delete Icons */}
         <View style={styles.editDeleteIcons}>
@@ -185,8 +182,7 @@ export default function VendorEmployeeHome() {
       isVeg={item.isVeg}
       price={item.price}
       availability={item.availability}
-      vendor={item.vendor}
-      location={item.location}
+    
       onEdit={() => openEditModal(item)} // Handle edit action
       onDelete={() => openDeleteModal(item)}
       searchQuery={searchQuery} // Pass searchQuery to Card component
