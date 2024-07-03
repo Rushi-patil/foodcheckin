@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Alert, CheckBox } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Alert, CheckBox, ScrollView } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 const vendorsData = [
@@ -175,62 +175,75 @@ export default function ViewVendors({ navigation }) {
 
       {/* Edit Modal */}
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={editModalVisible}
-        onRequestClose={() => setEditModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>Edit Vendor</Text>
-            
-            {/* Form for editing vendor */}
+      animationType="slide"
+      transparent={true}
+      visible={editModalVisible}
+      onRequestClose={() => setEditModalVisible(false)}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <Text style={styles.modalTitle}>Edit Vendor</Text>
+          <ScrollView>
+            {/* Vendor Name */}
+            <Text style={styles.inputLabel}>Vendor Name:</Text>
             <TextInput
-              style={styles.input}
+              style={styles.inputField}
               placeholder="Vendor Name"
               value={editVendorName}
               onChangeText={text => setEditVendorName(text)}
             />
-            
+
+            {/* Email */}
+            <Text style={styles.inputLabel}>Email:</Text>
             <TextInput
-              style={styles.input}
+              style={styles.inputField}
               placeholder="Email"
               value={editEmail}
               onChangeText={text => setEditEmail(text)}
             />
-            
+
+            {/* Mobile */}
+            <Text style={styles.inputLabel}>Mobile:</Text>
             <TextInput
-              style={styles.input}
+              style={styles.inputField}
               placeholder="Mobile"
               value={editMobile}
               onChangeText={text => setEditMobile(text)}
             />
-            
-            {/* Checkboxes for branches */}
-            <View style={styles.checkboxContainer}>
-              {branchesData.map(branch => (
-                <View key={branch.id} style={styles.checkboxRow}>
-                  <CheckBox
-                    value={isBranchSelected(branch.id)}
-                    onValueChange={() => toggleBranchSelection(branch.id)}
-                  />
-                  <Text style={styles.checkboxLabel}>{`${branch.city}, ${branch.country} - ${branch.branchName}`}</Text>
-                </View>
-              ))}
-            </View>
 
-            {/* Buttons */}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={handleConfirmEdit}>
+            {/* Access to */}
+            <Text style={styles.inputLabel}>Access to:</Text>
+            {branchesData.map(branch => (
+              <View key={branch.id} style={styles.checkboxRow}>
+                <CheckBox
+                  value={isBranchSelected(branch.id)}
+                  onValueChange={() => toggleBranchSelection(branch.id)}
+                />
+                <Text style={styles.checkboxLabel}>{getBranchName(branch.id)}</Text>
+              </View>
+            ))}
+
+            {/* Save and Cancel Buttons */}
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={handleConfirmEdit}
+              >
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={() => setEditModalVisible(false)}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => setEditModalVisible(false)}
+              >
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </ScrollView>
         </View>
-      </Modal>
+      </View>
+    </Modal>
+
+
 
       {/* Delete Confirmation Modal */}
       <Modal
@@ -241,18 +254,28 @@ export default function ViewVendors({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Confirm Delete</Text>
+          <Text style={styles.modalTitle}>Confirm Delete</Text>
             {selectedVendor && (
-              <Text>Are you sure you want to delete {selectedVendor.vendorName}?</Text>
-            )}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={handleConfirmDelete}>
-                <Text style={styles.buttonText}>Yes</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={() => setDeleteModalVisible(false)}>
-                <Text style={styles.buttonText}>No</Text>
-              </TouchableOpacity>
-            </View>
+        <Text style={styles.confirmText}>
+          Are you sure you want to delete {selectedVendor.vendorName}?
+        </Text>
+      )}
+            
+            {/* Yes and No Buttons */}
+            <View style={styles.modalButtons}>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.saveButton]}
+          onPress={handleConfirmDelete}
+        >
+          <Text style={styles.buttonText}>Yes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.cancelButton]}
+          onPress={() => setDeleteModalVisible(false)}
+        >
+          <Text style={styles.buttonText}>No</Text>
+        </TouchableOpacity>
+      </View>
           </View>
         </View>
       </Modal>
@@ -343,6 +366,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
   },
+  
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -352,35 +376,56 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 8,
+    borderRadius: 10,
     width: '80%',
-    alignItems: 'center',
+    maxHeight: '80%',
   },
-  modalButtonContainer: {
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  inputLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  inputField: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  modalButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: 16,
+    justifyContent: 'flex-end',
+    marginTop: 20,
   },
   modalButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 4,
-    alignItems: 'center',
+    borderRadius: 5,
+    marginLeft: 10,
   },
-  checkboxContainer: {
-    marginTop: 16,
-    width: '100%',
+  cancelButton: {
+    backgroundColor: 'tomato',
+  },
+  saveButton: {
+    backgroundColor: '#007bff',
   },
   checkboxRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 10,
   },
   checkboxLabel: {
     marginLeft: 8,
     fontSize: 16,
-    color: '#333',
   },
+  
+ 
+
+
 });
 
