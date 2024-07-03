@@ -1,33 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Image, Text, StyleSheet, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import logo from '../../../assets/images/logo.jpeg';
 
 const SplashScreen = () => {
-    const navigation = useNavigation();
-
- 
+  const navigation = useNavigation();
   const fadeInDuration = 1000; 
   const fadeOutDuration = 1000; 
 
-  const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: fadeInDuration,
-      useNativeDriver: true,
-    }).start(() => {
-      setTimeout(() => {
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: fadeOutDuration,
-          useNativeDriver: true,
-        }).start(() => {
-          navigation.navigate('Signup'); 
-        });
-      }, 2000); 
-    });
+   
+    const animateSplash = () => {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: fadeInDuration,
+        useNativeDriver: true,
+      }).start(() => {
+        setTimeout(() => {
+          Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: fadeOutDuration,
+            useNativeDriver: true,
+          }).start(() => {
+            navigation.navigate('Signup'); 
+          });
+        }, 2000);
+      });
+    };
+
+    animateSplash(); 
+
+    return () => {
+      fadeAnim.setValue(0); 
+    };
   }, []);
 
   return (
@@ -38,7 +45,9 @@ const SplashScreen = () => {
         style={styles.logo}
         source={logo}
       />
-      <Text style={styles.description}>Empowering Dining Experiences Everywhere: Wherever You Are.</Text>
+      <Text style={styles.description}>
+        Empowering Dining Experiences Everywhere: Wherever You Are.
+      </Text>
     </Animated.View>
   );
 };
@@ -61,7 +70,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontWeight: '500',
     color: '#939090',
-  
   },
 });
 
