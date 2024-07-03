@@ -140,10 +140,11 @@ export default function VendorEmployeeHome() {
   const [selectedLocation, setSelectedLocation] = useState('City A'); // Default location
  
   const [editModalVisible, setEditModalVisible] = useState(false);
+  const [DeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [editItem, setEditItem] = useState(null);
  
   const openEditModal = (item) => {
-    setEditItem(item);
+ 
     setEditModalVisible(true);
   };
  
@@ -152,21 +153,29 @@ export default function VendorEmployeeHome() {
     setEditModalVisible(false);
   };
  
-  const saveChanges = () => {
-    // Save changes logic here
-    console.log('Saving changes for item:', editItem);
-    // Add your logic here to save changes
-    closeEditModal();
+  const openDeleteModal = (item) => {
+    setDeleteModalVisible(true);
+    setEditItem(item); // Optional: Set the item to be deleted for confirmation
   };
  
-  const handleDelete = (item) => {
-    // Handle delete functionality here
-    console.log('Deleting item with ID:', item.id);
+  const closeDeleteModal = () => {
+    setDeleteModalVisible(false);
+    setEditItem(null); // Clear the editItem state
+  };
+ 
+ 
+ 
+ 
+ 
+  const saveChanges = (item) => {
     // Implement your delete logic here
-    // For demo purposes, let's filter out the item from foodItems
+    console.log('Deleting item with ID:', item.id);
+    // Filter out the item from foodItems
     const updatedItems = foodItems.filter((i) => i.id !== item.id);
     setFoodItems(updatedItems);
+    closeDeleteModal();
   };
+ 
  
   const renderFoodItem = ({ item }) => (
     <Card
@@ -179,8 +188,9 @@ export default function VendorEmployeeHome() {
       vendor={item.vendor}
       location={item.location}
       onEdit={() => openEditModal(item)} // Handle edit action
-      onDelete={() => handleDelete(item)} // Handle delete action
+      onDelete={() => openDeleteModal(item)}
       searchQuery={searchQuery} // Pass searchQuery to Card component
+     
     />
   );
  
@@ -202,7 +212,7 @@ export default function VendorEmployeeHome() {
       <View style={styles.header}>
         <View style={styles.locationContainer}>
           <Text style={styles.locationText}>{selectedLocation}</Text>
-          
+         
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('VendorMemberSiderMenu')}>
           <View style={styles.userCircle}>
@@ -334,23 +344,63 @@ export default function VendorEmployeeHome() {
  
               {/* Buttons */}
               <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={closeEditModal}
-                >
-                  <Text style={styles.buttonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+ 
+              <TouchableOpacity
                   style={[styles.modalButton, styles.saveButton]}
-                  onPress={saveChanges}
+             
+                 
                 >
                   <Text style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
+ 
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.cancelButton]}
+                 
+                  onPress={() => closeEditModal()}
+                >
+                  <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
+             
               </View>
             </ScrollView>
           </View>
         </View>
       </Modal>
+ 
+ 
+        {/* Delete Modal */}
+        <Modal
+  animationType="slide"
+  transparent={true}
+  visible={DeleteModalVisible}
+  onRequestClose={closeDeleteModal}
+>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text style={styles.modalTitle}>Are you sure you want to delete this item?</Text>
+      <ScrollView>
+        <View style={styles.modalButtons}>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.saveButton]}
+            onPress={() => saveChanges(editItem)} // Pass the item to be deleted
+          >
+            <Text style={styles.buttonText}>Yes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.cancelButton]}
+            onPress={closeDeleteModal}
+          >
+            <Text style={styles.buttonText}>No</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
+  </View>
+</Modal>
+ 
+ 
+ 
+     
     </ScrollView>
   );
 }
@@ -376,7 +426,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 2,
     borderWidth: 1,
-    borderColor: '#d3d3d3', 
+    borderColor: '#d3d3d3',
   },
   locationText: {
     fontSize: 18,
@@ -406,7 +456,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 6,
     borderWidth: 1,
-    borderColor: '#d3d3d3', 
+    borderColor: '#d3d3d3',
   },
   searchIcon: {
     marginRight: 10,
@@ -584,5 +634,7 @@ const styles = StyleSheet.create({
  
  
  
-
+ 
+ 
+ 
  
