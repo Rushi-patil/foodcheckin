@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList,Pressable} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -7,8 +7,12 @@ import { Picker } from '@react-native-picker/picker';
 
 export default function AddFoodItems({ navigation }) {
   const [form, setForm] = useState({
-    foodItem: '',
-    branch: '',
+ 
+    foodItem: [
+      { label: 'Pune', value: 'pune' },
+      { label: 'Mumbai', value: 'mumbai' },
+      { label: 'Sangli', value: 'sangli' },
+    ],
     date: null, 
     price: '',
     category: 'All day available',
@@ -73,6 +77,13 @@ const showDatepicker = () => {
     }
   };
 
+  const toggleModal = () => {
+    setForm({ ...form, isModalVisible: !form.isModalVisible });
+  };
+  const handleFoodChange = (itemValue) => {
+    setForm({ ...form, selectedFood: itemValue });
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
@@ -88,6 +99,38 @@ const showDatepicker = () => {
 
           <View style={styles.formContainer}>
             
+          <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Select Food</Text>
+          <TouchableOpacity style={styles.selectFoodButton} onPress={toggleModal}>
+            <Text>{form.selectedFood ? form.selectedFood : 'Select Food...'}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={form.isModalVisible}
+          onRequestClose={toggleModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Select Food</Text>
+              <Picker
+                selectedValue={form.selectedFood}
+                style={styles.Foodpicker}
+                onValueChange={handleFoodChange}
+              >
+                <Picker.Item label="Select Food..." value="" />
+                {form.foodItem.map((foodItem) => (
+                  <Picker.Item key={foodItem.value} label={foodItem.label} value={foodItem.value} />
+                ))}
+              </Picker>
+              <Pressable style={styles.closeButton} onPress={toggleModal}>
+                <Text style={styles.closeButtonText}>Close</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
 
           <View style={styles.inputContainer}>
   <Text style={styles.inputLabel}>Date</Text>
@@ -244,6 +287,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
+  Foodpicker: {
+   
+    height: 200, // Adjust height as needed
+    width: '100%',
+    marginTop: -20,
+  },
   modalContent: {
     width: '80%',
     backgroundColor: '#fff',
@@ -277,6 +326,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  selectFoodButton: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 8,
   },
 
 });
