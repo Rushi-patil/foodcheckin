@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 
-export default function ViewFeedback() {
+export default function ViewFeedback({navigation}) {
   const [feedbackList, setFeedbackList] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all'); // State to track active filter
 
@@ -37,6 +38,9 @@ export default function ViewFeedback() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.filterContainer}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+            <FeatherIcon name="chevron-left" size={24} color="#333" />
+          </TouchableOpacity>
         <TouchableOpacity
           style={[styles.filterButton, activeFilter === 'all' && styles.activeFilterButton]}
           onPress={() => filterFeedback('all')}
