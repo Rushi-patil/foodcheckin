@@ -16,8 +16,20 @@ export default function AddFoodItems({ navigation }) {
 
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All day available');
+  const [dateModalVisible, setDateModalVisible] = useState(false);
+const [showDatePicker, setShowDatePicker] = useState(false);
 
 
+
+const handleChangeDate = (event, selectedDate) => {
+  const currentDate = selectedDate || form.date;
+  setShowDatePicker(false);
+  setForm({ ...form, date: currentDate });
+};
+
+const showDatepicker = () => {
+  setShowDatePicker(true);
+};
 
 
 
@@ -76,7 +88,22 @@ export default function AddFoodItems({ navigation }) {
           <View style={styles.formContainer}>
             
 
-          
+          <View style={styles.inputContainer}>
+  <Text style={styles.inputLabel}>Date</Text>
+  <TouchableOpacity style={styles.picker} onPress={showDatepicker}>
+    <MaterialIcon name="calendar-today" size={24} color="#007bff" style={styles.pickerItemIcon} />
+    <Text style={styles.pickerText}>{form.date ? form.date.toDateString() : 'Select Date'}</Text>
+  </TouchableOpacity>
+  {showDatePicker && (
+    <DateTimePicker
+      value={form.date || new Date()}
+      mode="date"
+      display="default"
+      onChange={handleChangeDate}
+    />
+  )}
+</View>
+
 
           
 
