@@ -570,7 +570,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   cancelButton: {
-    backgroundColor: '#ccc',
+    backgroundColor: 'tomato',
   },
   saveButton: {
     backgroundColor: '#007bff',
