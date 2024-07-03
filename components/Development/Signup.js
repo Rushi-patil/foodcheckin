@@ -121,9 +121,9 @@ export default function Signup() {
 
             <View style={styles.formAction}>
               <TouchableOpacity
-                onPress={() => {
-                  // handle signup logic
-                }}>
+               onPress={() => navigation.navigate('SplashSceenSignup')}>
+
+                  
                 <View style={styles.btn}>
                   <Text style={styles.btnText}>Sign up</Text>
                 </View>
