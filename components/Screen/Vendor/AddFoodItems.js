@@ -16,15 +16,10 @@ export default function AddFoodItems({ navigation }) {
 
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All day available');
-  const [datePickerVisible, setDatePickerVisible] = useState(false);
 
 
 
-  const handleChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || form.date;
-    setForm({ ...form, date: currentDate });
-    setDatePickerVisible(false);
-  };
+
 
   const handleChangePrice = (price) => {
     setForm({ ...form, price });
@@ -83,15 +78,7 @@ export default function AddFoodItems({ navigation }) {
 
           
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Date</Text>
-              <TouchableOpacity onPress={() => setDatePickerVisible(true)} style={styles.datePicker}>
-  <Text style={form.date ? styles.datePickerText : styles.placeholderText}>
-    {form.date ? form.date.toDateString() : 'Select Date'}
-  </Text>
-</TouchableOpacity>
-
-            </View>
+          
 
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Price</Text>
@@ -136,15 +123,6 @@ export default function AddFoodItems({ navigation }) {
         </View>
       </Modal>
 
-      {datePickerVisible && (
-        <DateTimePicker
-          value={form.date}
-          mode="date"
-          display="default"
-          onChange={handleChangeDate}
-          maximumDate={new Date()}
-        />
-      )}
     </SafeAreaView>
   );
 }
@@ -269,11 +247,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  datePicker: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    borderRadius: 8,
-  },
+
 });
