@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Alert, ScrollView } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 const branchesData = [
@@ -83,15 +83,18 @@ export default function ViewFoodCollection({ navigation }) {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search by Food Name..."
-          value={searchQuery}
-          onChangeText={text => setSearchQuery(text)}
-          onSubmitEditing={handleSearch}
-        />
+        <View style={styles.searchInput}>
+          <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchTextInput}
+            placeholder="Search By Food Name..."
+            placeholderTextColor="#666"
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+            onSubmitEditing={handleSearch}
+          />
+        </View>
       </View>
-
       {/* Branch Cards */}
       <View style={styles.cardContainer}>
         {branches.map(branch => (
@@ -125,49 +128,66 @@ export default function ViewFoodCollection({ navigation }) {
 
       {/* Edit Modal */}
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={editModalVisible}
-        onRequestClose={() => setEditModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text>Edit Branch</Text>
-            
-            {/* Form for editing branch */}
-            <TextInput
-              style={styles.input}
-              placeholder="Country"
-              value={editCountry}
-              onChangeText={text => setEditCountry(text)}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="City"
-              value={editCity}
-              onChangeText={text => setEditCity(text)}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Branch Name"
-              value={editBranchName}
-              onChangeText={text => setEditBranchName(text)}
-            />
-            
-            {/* Buttons */}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={handleConfirmEdit}>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={() => setEditModalVisible(false)}>
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+  animationType="slide"
+  transparent={true}
+  visible={editModalVisible}
+  onRequestClose={() => setEditModalVisible(false)}
+>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text style={styles.modalTitle}>Edit Food Collection</Text>
+      <ScrollView>
+        {/* Form for editing branch */}
+        <View style={styles.formGroup}>
+          <Text style={styles.inputLabel}>Food Name:</Text>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Food Name"
+            value={editCountry}
+            onChangeText={text => setEditCountry(text)}
+          />
         </View>
-      </Modal>
+        
+        <View style={styles.formGroup}>
+          <Text style={styles.inputLabel}>Description:</Text>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Description"
+            value={editCity}
+            onChangeText={text => setEditCity(text)}
+          />
+        </View>
+        
+        <View style={styles.formGroup}>
+          <Text style={styles.inputLabel}>Price:</Text>
+          <TextInput
+            style={styles.inputField}
+            placeholder="Price"
+            value={editBranchName}
+            onChangeText={text => setEditBranchName(text)}
+          />
+        </View>
+
+        {/* Buttons */}
+        <View style={styles.modalButtons}>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.saveButton]}
+            onPress={handleConfirmEdit}
+          >
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.cancelButton]}
+            onPress={() => setEditModalVisible(false)}
+          >
+            <Text style={styles.buttonText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
+  </View>
+</Modal>
+
 
       {/* Delete Confirmation Modal */}
       <Modal
@@ -178,18 +198,24 @@ export default function ViewFoodCollection({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Confirm Delete</Text>
+          <Text style={styles.modalTitle}>Confirm Delete</Text>
             {selectedBranch && (
-              <Text>Are you sure you want to delete {selectedBranch.FoodName} branch?</Text>
+              <Text style={styles.confirmText}>Are you sure you want to delete {selectedBranch.country} branch?</Text>
             )}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={handleConfirmDelete}>
-                <Text style={styles.buttonText}>Yes</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={() => setDeleteModalVisible(false)}>
-                <Text style={styles.buttonText}>No</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.modalButtons}>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.saveButton]}
+          onPress={handleConfirmDelete}
+        >
+          <Text style={styles.buttonText}>Yes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.cancelButton]}
+          onPress={() => setDeleteModalVisible(false)}
+        >
+          <Text style={styles.buttonText}>No</Text>
+        </TouchableOpacity>
+      </View>
           </View>
         </View>
       </Modal>
@@ -222,6 +248,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 12,
     paddingBottom: 12,
+  },
+  searchInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchTextInput: {
+    flex: 1,
+    height: 40,
+    color: '#333',
+    paddingHorizontal: 12,
   },
   input: {
     borderWidth: 1,
@@ -289,20 +332,46 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 8,
+    borderRadius: 10,
     width: '80%',
-    alignItems: 'center',
+    maxHeight: '80%',
   },
-  modalButtonContainer: {
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  inputLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  inputField: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  modalButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: 16,
+    justifyContent: 'flex-end',
+    marginTop: 20,
   },
   modalButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 4,
-    alignItems: 'center',
+    borderRadius: 5,
+    marginLeft: 10,
+  },
+  cancelButton: {
+    backgroundColor: 'tomato',
+  },
+  saveButton: {
+    backgroundColor: '#007bff',
+  },
+  formGroup: {
+    width: '100%',
+    marginBottom: 16,
   },
 });
