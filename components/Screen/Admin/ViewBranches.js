@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Alert, ScrollView } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 const branchesData = [
@@ -82,14 +82,19 @@ export default function ViewBranches({ navigation }) {
       </View>
 
       {/* Search Bar */}
+  
       <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search By Country..."
-          value={searchQuery}
-          onChangeText={text => setSearchQuery(text)}
-          onSubmitEditing={handleSearch}
-        />
+        <View style={styles.searchInput}>
+          <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchTextInput}
+            placeholder="Search By Country..."
+            placeholderTextColor="#666"
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+            onSubmitEditing={handleSearch}
+          />
+        </View>
       </View>
 
       {/* Branch Cards */}
@@ -132,39 +137,56 @@ export default function ViewBranches({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Edit Branch</Text>
-            
+            <Text style={styles.modalTitle}>Edit Branch</Text>
+            <ScrollView>
+
+          
             {/* Form for editing branch */}
-            <TextInput
-              style={styles.input}
-              placeholder="Country"
-              value={editCountry}
-              onChangeText={text => setEditCountry(text)}
-            />
+
+            <Text style={styles.inputLabel}>Country:</Text>
+        <TextInput
+          style={styles.inputField}
+          value={editCountry}
+          onChangeText={text => setEditCountry(text)}
+        />
+
+           
             
-            <TextInput
-              style={styles.input}
+<Text style={styles.inputLabel}>Country:</Text>
+        <TextInput
+          style={styles.inputField}
               placeholder="City"
               value={editCity}
               onChangeText={text => setEditCity(text)}
-            />
+        />
+
+
+<Text style={styles.inputLabel}>Branch Name:</Text>
+        <TextInput
+          style={styles.inputField}
+          placeholder="Branch Name"
+          value={editBranchName}
+          onChangeText={text => setEditBranchName(text)}
+        />
+           
             
-            <TextInput
-              style={styles.input}
-              placeholder="Branch Name"
-              value={editBranchName}
-              onChangeText={text => setEditBranchName(text)}
-            />
             
             {/* Buttons */}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={handleConfirmEdit}>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={() => setEditModalVisible(false)}>
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
+            <View style={styles.modalButtons}>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.saveButton]}
+            onPress={handleConfirmEdit}
+          >
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.cancelButton]}
+            onPress={() => setEditModalVisible(false)}
+          >
+            <Text style={styles.buttonText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+            </ScrollView>
           </View>
         </View>
       </Modal>
@@ -178,18 +200,24 @@ export default function ViewBranches({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Confirm Delete</Text>
+          <Text style={styles.modalTitle}>Confirm Delete</Text>
             {selectedBranch && (
-              <Text>Are you sure you want to delete {selectedBranch.country} branch?</Text>
+              <Text style={styles.confirmText}>Are you sure you want to delete {selectedBranch.country} branch?</Text>
             )}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={handleConfirmDelete}>
-                <Text style={styles.buttonText}>Yes</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={() => setDeleteModalVisible(false)}>
-                <Text style={styles.buttonText}>No</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.modalButtons}>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.saveButton]}
+          onPress={handleConfirmDelete}
+        >
+          <Text style={styles.buttonText}>Yes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.cancelButton]}
+          onPress={() => setDeleteModalVisible(false)}
+        >
+          <Text style={styles.buttonText}>No</Text>
+        </TouchableOpacity>
+      </View>
           </View>
         </View>
       </Modal>
@@ -223,13 +251,33 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
   },
+  searchInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchTextInput: {
+    flex: 1,
+    height: 40,
+    color: '#333',
+    paddingHorizontal: 12,
+  },
   input: {
+    height: 60,
+    color: '#333',
+    paddingHorizontal: 12,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginBottom: 12,
+    borderRadius: 4,
+    marginTop: 8,
+    textAlignVertical: 'center', // Align text vertically centered
+    paddingVertical: 10, // Add padding to center the text vertically
   },
   cardContainer: {
     paddingHorizontal: 24,
@@ -289,20 +337,46 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 8,
+    borderRadius: 10,
     width: '80%',
-    alignItems: 'center',
+    maxHeight: '80%',
   },
-  modalButtonContainer: {
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  inputLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  inputField: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  modalButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: 16,
+    justifyContent: 'flex-end',
+    marginTop: 20,
   },
   modalButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 4,
-    alignItems: 'center',
+    borderRadius: 5,
+    marginLeft: 10,
+  },
+  cancelButton: {
+    backgroundColor: 'tomato',
+  },
+  saveButton: {
+    backgroundColor: '#007bff',
+  },
+  formGroup: {
+    width: '100%',
+    marginBottom: 16,
   },
 });

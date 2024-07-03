@@ -43,16 +43,22 @@ export default function ViewUsers({ navigation }) {
       </View>
 
       {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search by Name..."
-          value={searchQuery}
-          onChangeText={text => setSearchQuery(text)}
-          onSubmitEditing={handleSearch}
-        />
-      </View>
+     
 
+      <View style={styles.searchContainer}>
+        <View style={styles.searchInput}>
+          <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchTextInput}
+            placeholder="Search by Name..."
+            placeholderTextColor="#666"
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+            onSubmitEditing={handleSearch}
+
+          />
+        </View>
+      </View>
       {/* User Cards */}
       <View style={styles.cardContainer}>
         {users.map(user => (
@@ -104,6 +110,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 12,
     paddingBottom: 12,
+  },
+  searchInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchTextInput: {
+    flex: 1,
+    height: 40,
+    color: '#333',
+    paddingHorizontal: 12,
   },
   input: {
     borderWidth: 1,

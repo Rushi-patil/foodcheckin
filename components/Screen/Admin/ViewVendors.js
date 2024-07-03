@@ -121,13 +121,18 @@ export default function ViewVendors({ navigation }) {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
+        <View style={styles.searchInput}>
+          <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
         <TextInput
-          style={styles.input}
-          placeholder="Search By Vendor Name..."
-          value={searchQuery}
-          onChangeText={text => setSearchQuery(text)}
-          onSubmitEditing={handleSearch}
+       
+         style={styles.searchTextInput}
+            placeholder="Search By Vendor Name..."
+            placeholderTextColor="#666"
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+            onSubmitEditing={handleSearch}
         />
+     </View>
       </View>
 
       {/* Vendor Cards */}
@@ -308,6 +313,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 12,
     paddingBottom: 12,
+  },
+  searchInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchTextInput: {
+    flex: 1,
+    height: 40,
+    color: '#333',
+    paddingHorizontal: 12,
   },
   input: {
     borderWidth: 1,
