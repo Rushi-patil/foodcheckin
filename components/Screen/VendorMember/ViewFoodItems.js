@@ -94,7 +94,7 @@ export default function ViewFoodItems({ navigation }) {
         <View style={styles.searchInput}>
           <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
           <TextInput
-            style={styles.input}
+            style={styles.searchTextInput}
             placeholder="Search by food name..."
             placeholderTextColor="#666"
             value={searchQuery}
@@ -147,88 +147,109 @@ export default function ViewFoodItems({ navigation }) {
 
       {/* Edit Modal */}
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={editModalVisible}
-        onRequestClose={() => setEditModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Edit Food Item</Text>
-            
-            {/* Form for editing food item */}
-            <TextInput
-              style={styles.input}
-              placeholder="Food Item"
-              value={editFoodItem}
-              onChangeText={text => setEditFoodItem(text)}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Branch"
-              value={editBranch}
-              onChangeText={text => setEditBranch(text)}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Date"
-              value={editDate}
-              onChangeText={text => setEditDate(text)}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Price"
-              value={editPrice}
-              onChangeText={text => setEditPrice(text)}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Category"
-              value={editCategory}
-              onChangeText={text => setEditCategory(text)}
-            />
-            
-            {/* Buttons */}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={handleConfirmEdit}>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={() => setEditModalVisible(false)}>
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+  animationType="slide"
+  transparent={true}
+  visible={editModalVisible}
+  onRequestClose={() => setEditModalVisible(false)}
+>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text style={styles.modalTitle}>Edit Item</Text>
+      <ScrollView>
+        {/* Food Item */}
+        <Text style={styles.inputLabel}>Food Item:</Text>
+        <TextInput
+          style={styles.inputField}
+          value={editFoodItem}
+          onChangeText={text => setEditFoodItem(text)}
+        />
+
+        {/* Branch */}
+        <Text style={styles.inputLabel}>Branch:</Text>
+        <TextInput
+          style={styles.inputField}
+          value={editBranch}
+          onChangeText={text => setEditBranch(text)}
+        />
+
+        {/* Date */}
+        <Text style={styles.inputLabel}>Date:</Text>
+        <TextInput
+          style={styles.inputField}
+          value={editDate}
+          onChangeText={text => setEditDate(text)}
+        />
+
+        {/* Price */}
+        <Text style={styles.inputLabel}>Price:</Text>
+        <TextInput
+          style={styles.inputField}
+          value={editPrice}
+          onChangeText={text => setEditPrice(text)}
+        />
+
+        {/* Category */}
+        <Text style={styles.inputLabel}>Category:</Text>
+        <TextInput
+          style={styles.inputField}
+          value={editCategory}
+          onChangeText={text => setEditCategory(text)}
+        />
+
+        {/* Buttons */}
+        <View style={styles.modalButtons}>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.saveButton]}
+            onPress={handleConfirmEdit}
+          >
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.cancelButton]}
+            onPress={() => setEditModalVisible(false)}
+          >
+            <Text style={styles.buttonText}>Cancel</Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
+      </ScrollView>
+    </View>
+  </View>
+</Modal>
+
 
       {/* Delete Confirmation Modal */}
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={deleteModalVisible}
-        onRequestClose={() => setDeleteModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Confirm Delete</Text>
-            {selectedFoodItem && (
-              <Text>Are you sure you want to delete {selectedFoodItem.foodItem}?</Text>
-            )}
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#e74c3c' }]} onPress={handleConfirmDelete}>
-                <Text style={styles.buttonText}>Yes</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, { backgroundColor: '#3498db' }]} onPress={() => setDeleteModalVisible(false)}>
-                <Text style={styles.buttonText}>No</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+  animationType="slide"
+  transparent={true}
+  visible={deleteModalVisible}
+  onRequestClose={() => setDeleteModalVisible(false)}
+>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text style={styles.modalTitle}>Confirm Delete</Text>
+      {selectedFoodItem && (
+        <Text style={styles.confirmText}>
+          Are you sure you want to delete {selectedFoodItem.foodItem}?
+        </Text>
+      )}
+      <View style={styles.modalButtons}>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.saveButton]}
+          onPress={handleConfirmDelete}
+        >
+          <Text style={styles.buttonText}>Yes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.cancelButton]}
+          onPress={() => setDeleteModalVisible(false)}
+        >
+          <Text style={styles.buttonText}>No</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </View>
+</Modal>
+
     </View>
   );
 }
@@ -270,11 +291,22 @@ const styles = StyleSheet.create({
   searchIcon: {
     marginRight: 10,
   },
-  input: {
+  searchTextInput: {
     flex: 1,
     height: 40,
     color: '#333',
     paddingHorizontal: 12,
+  },
+  input: {
+    height: 60,
+    color: '#333',
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    marginTop: 8,
+    textAlignVertical: 'center', // Align text vertically centered
+    paddingVertical: 10, // Add padding to center the text vertically
   },
   cardContainer: {
     paddingHorizontal: 24,
@@ -334,25 +366,46 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 8,
+    borderRadius: 10,
     width: '80%',
-    alignItems: 'center',
-  },
-  modalButtonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: 16,
-  },
-  modalButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 4,
-    alignItems: 'center',
+    maxHeight: '80%',
   },
   modalTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: 'bold',
     marginBottom: 10,
+  },
+  inputLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  inputField: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 20,
+  },
+  modalButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginLeft: 10,
+  },
+  cancelButton: {
+    backgroundColor: 'tomato',
+  },
+  saveButton: {
+    backgroundColor: '#007bff',
+  },
+  formGroup: {
+    width: '100%',
+    marginBottom: 16,
   },
 });
