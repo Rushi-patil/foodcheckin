@@ -139,17 +139,26 @@ export default function AddFoodItems({ navigation }) {
           </View>
         </View>
       </Modal>
+      <Modal visible={datePickerVisible} animationType="slide" transparent={true}>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <DateTimePicker
+        value={form.date || new Date()}
+        mode="date"
+        display="default"
+        onChange={handleChangeDate}
+        maximumDate={new Date()}
+        style={{  backgroundColor: '#fff',alignItems: 'center', paddingVertical: 12 }}
 
-      {datePickerVisible && (
-        <DateTimePicker
-          value={form.date || new Date()}
-          mode="date"
-          display="default"
-          onChange={handleChangeDate}
-          maximumDate={new Date()}
-          style={{ backgroundColor: '#fff' }}
-        />
-      )}
+    
+      />
+      <TouchableOpacity style={styles.closeButton} onPress={() => setDatePickerVisible(false)}>
+        <Text style={styles.closeButtonText}>Close</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
+
     </SafeAreaView>
   );
 }
@@ -245,6 +254,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 24,
+    alignItems: 'center',
   },
   modalTitle: {
     fontSize: 18,
