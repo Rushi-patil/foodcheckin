@@ -51,20 +51,20 @@ export default function HomeScreen() {
 
       <Stack.Navigator screenOptions={{headerShown:false}}>
       
-        {/* <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="SplashSceenSignup" component={SplashSceenSignup} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ConfirmationCode" component={ConfirmationCode} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> */}
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
         {/* User Screens */}
-        {/* <Stack.Screen name="UserHome" component={UserHome} />
+        <Stack.Screen name="UserHome" component={UserHome} />
         <Stack.Screen name="Usersetting" component={Usersetting} />
         <Stack.Screen name="EditUserProfile" component={EditUserProfile} />
         <Stack.Screen name="UserSiderMenu" component={UserSiderMenu} />
         <Stack.Screen name="UserProfileView" component={UserProfileView} />
-        <Stack.Screen name="UserFeedback" component={UserFeedback} /> */}
+        <Stack.Screen name="UserFeedback" component={UserFeedback} />
         
         {/* Vendor Screens */}
         {/* <Stack.Screen name="VendorHome" component={VendorHome} />

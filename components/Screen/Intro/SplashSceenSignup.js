@@ -13,7 +13,7 @@ const SplashScreenSignup = () => {
         fadeAnim,
         {
           toValue: 1,
-          duration: 500,
+          duration: 1050,
           useNativeDriver: true,
         }
       ).start(() => {
