@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, TextInput, TouchableOpacity, Modal, FlatList, Dimensions } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 export default function AddFoodItems({ navigation }) {
   const [form, setForm] = useState({
     foodItem: '',
     branch: '',
-    date: new Date(),
+    date: null,
     price: '',
-    category: 'All day available',
+    category: null,
   });
 
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('All day available');
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
-
-
 
   const handleChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate || form.date;
@@ -79,14 +80,15 @@ export default function AddFoodItems({ navigation }) {
           <Text style={styles.sectionTitle}>Add New Food Item</Text>
 
           <View style={styles.formContainer}>
-            
-
-          
-
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Date</Text>
               <TouchableOpacity onPress={() => setDatePickerVisible(true)} style={styles.datePicker}>
-                <Text>{form.date.toDateString()}</Text>
+                {!form.date && (
+                  <Text style={styles.placeholderText}>Select Date</Text>
+                )}
+                {form.date && (
+                  <Text style={styles.datePickerText}>{form.date.toDateString()}</Text>
+                )}
               </TouchableOpacity>
             </View>
 
@@ -94,7 +96,8 @@ export default function AddFoodItems({ navigation }) {
               <Text style={styles.inputLabel}>Price</Text>
               <TextInput
                 style={styles.textInput}
-                placeholder="Enter price"
+                placeholder="Enter Price"
+                placeholderTextColor="#6b7280"
                 keyboardType="numeric"
                 value={form.price}
                 onChangeText={handleChangePrice}
@@ -105,7 +108,12 @@ export default function AddFoodItems({ navigation }) {
               <Text style={styles.inputLabel}>Category</Text>
               <TouchableOpacity style={styles.picker} onPress={() => setCategoryModalVisible(true)}>
                 <MaterialIcon name={getCategoryIcon(selectedCategory)} size={24} color="#007bff" style={styles.pickerItemIcon} />
-                <Text style={styles.pickerText}>{selectedCategory}</Text>
+                {!selectedCategory && (
+                  <Text style={styles.placeholderText}>Select Category</Text>
+                )}
+                {selectedCategory && (
+                  <Text style={styles.pickerText}>{selectedCategory}</Text>
+                )}
               </TouchableOpacity>
             </View>
           </View>
@@ -134,11 +142,12 @@ export default function AddFoodItems({ navigation }) {
 
       {datePickerVisible && (
         <DateTimePicker
-          value={form.date}
+          value={form.date || new Date()}
           mode="date"
           display="default"
           onChange={handleChangeDate}
           maximumDate={new Date()}
+          style={{ backgroundColor: '#fff' }}
         />
       )}
     </SafeAreaView>
@@ -266,10 +275,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   datePicker: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    borderRadius: 8,
+    width: windowWidth,
+    backgroundColor: '#fff',
+  },
+  datePickerText: {
+    fontSize: 16,
+  },
+  placeholderText: {
+    fontSize: 16,
+    color: '#6b7280',
   },
 });
