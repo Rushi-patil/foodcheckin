@@ -9,7 +9,7 @@ export default function AddFoodItems({ navigation }) {
   const [form, setForm] = useState({
     foodItem: '',
     branch: '',
-    date: new Date(),
+    date: null, 
     price: '',
     category: 'All day available',
   });
@@ -17,7 +17,7 @@ export default function AddFoodItems({ navigation }) {
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All day available');
   const [dateModalVisible, setDateModalVisible] = useState(false);
-const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
 
 
@@ -30,6 +30,7 @@ const handleChangeDate = (event, selectedDate) => {
 const showDatepicker = () => {
   setShowDatePicker(true);
 };
+
 
 
 
@@ -100,6 +101,8 @@ const showDatepicker = () => {
       mode="date"
       display="default"
       onChange={handleChangeDate}
+      style={{ alignSelf: 'flex-start',marginTop:5}}
+      
     />
   )}
 </View>
@@ -209,6 +212,7 @@ const styles = StyleSheet.create({
   pickerText: {
     fontSize: 16,
     marginLeft: 8,
+    color:'#6b7280'
   },
   pickerItemIcon: {
     marginRight: 10,
