@@ -50,7 +50,7 @@ export default function ViewUsers({ navigation }) {
           <FeatherIcon name="search" size={20} color="#666" style={styles.searchIcon} />
           <TextInput
             style={styles.searchTextInput}
-            placeholder="Search by Name..."
+            placeholder="Search By Name..."
             placeholderTextColor="#666"
             value={searchQuery}
             onChangeText={text => setSearchQuery(text)}
