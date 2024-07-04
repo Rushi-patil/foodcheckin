@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import profile from '../../../assets/images/profile.jpg';
 
 export default function UserSiderMenu() {
     const navigation = useNavigation();
@@ -31,9 +32,7 @@ export default function UserSiderMenu() {
             <View style={styles.profileAvatarWrapper}>
               <Image
                 alt=""
-                source={{
-                  uri: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80',
-                }}
+                source={profile}
                 style={styles.profileAvatar} />
 
               <TouchableOpacity
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
   profileAction: {
     position: 'absolute',
     right: -4,
-    bottom: -10,
+    bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
     width: 28,
