@@ -32,9 +32,9 @@ const Card = ({ image, name, type, isVeg, price, availability, vendor, location,
         <View style={styles.foodLeft}>
           <Text style={styles.foodName}>{name}</Text>
           {isVeg ? (
-            <FeatherIcon name="check-circle" size={16} color="green" style={styles.vegIcon} />
+            <FeatherIcon name="circle" size={16} color="white" style={styles.vegIcon} />
           ) : (
-            <FeatherIcon name="slash" size={16} color="red" style={styles.nonVegIcon} />
+            <FeatherIcon name="circle" size={16} color="white" style={styles.nonVegIcon} />
           )}
         </View>
         <View style={styles.vendorInfo}>
@@ -455,9 +455,20 @@ const styles = StyleSheet.create({
   },
   vegIcon: {
     marginRight: 4,
+    backgroundColor:'#57AF46',
+    borderWidth:1,
+    borderColor:'white',
+    padding:1,
+    borderRadius:5,
+
   },
   nonVegIcon: {
     marginRight: 4,
+    backgroundColor:'red',
+    borderWidth:1,
+    borderColor:'white',
+    padding:1,
+    borderRadius:5,
   },
   vendorInfo: {
     alignItems: 'flex-end',
