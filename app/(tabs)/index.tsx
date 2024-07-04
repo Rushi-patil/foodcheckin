@@ -54,7 +54,6 @@ export default function HomeScreen() {
 
       <Stack.Navigator screenOptions={{headerShown:false}}>
       
-      <Stack.Screen name="SplashScreen" component={SplashScreen} />
         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="SplashSceenSignup" component={SplashSceenSignup} />
