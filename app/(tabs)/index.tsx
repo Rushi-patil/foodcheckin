@@ -1,4 +1,4 @@
-import { StyleSheet, View ,Platform} from 'react-native';
+import { StyleSheet, View ,Platform, KeyboardAvoidingView} from 'react-native';
 import Login from "../../components/Development/Login"
 import Signup from '../../components/Development/Signup';
 import ForgotPassword from '../../components/Development/Forgotpassword';
@@ -47,7 +47,10 @@ export default function HomeScreen() {
   return (
 
     <>
-        <View style={styles.Container}>
+
+<KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.Container}>
+      
 
       <Stack.Navigator screenOptions={{headerShown:false}}>
       
@@ -106,7 +109,7 @@ export default function HomeScreen() {
 
       </Stack.Navigator>
 
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
