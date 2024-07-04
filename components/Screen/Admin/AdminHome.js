@@ -183,7 +183,7 @@ export default function AdminHome() {
         <FeatherIcon name="search" size={20} color="#999" style={styles.searchIcon} />
         <TextInput
           style={styles.searchBox}
-          placeholder="Search food items"
+          placeholder="Search Food Items"
           placeholderTextColor="#999"
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
